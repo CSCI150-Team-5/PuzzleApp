@@ -6,7 +6,8 @@ using namespace std;
 
 int main() {
 	cout << "Hello World" << endl;
-
+	cout << "gummy code" << endl;
+	
 	system("pause");
 	return 0;
 
