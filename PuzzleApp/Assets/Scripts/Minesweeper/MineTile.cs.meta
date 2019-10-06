@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8547bcc00a754604fb14eed5726b94da
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - unfilledTexture: {fileID: 21300000, guid: b973239fd2ecdad41a07451ddb9887aa, type: 3}
+  - mineTexture: {fileID: 21300000, guid: be5292ffe05ce254589419c36fc24dfd, type: 3}
+  - firstMineTexture: {fileID: 21300000, guid: a166be6e95c004948aced4d73639c579, type: 3}
+  - flaggedTexture: {fileID: 21300000, guid: a6d9373df65f02448ac58c3d46a0dde9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
