@@ -30,7 +30,8 @@ public class MineTile : MonoBehaviour
 
 	public void fill(int count)
 	{
-		if (mine) GetComponent<SpriteRenderer>().sprite = mineTexture;  //Handles the texture for mines.
+		if (count == -2) { print("Hi");  GetComponent<SpriteRenderer>().sprite = firstMineTexture; } //Special case.
+		else if (mine) GetComponent<SpriteRenderer>().sprite = mineTexture;  //Handles the texture for mines.
 		else GetComponent<SpriteRenderer>().sprite = filledTexture[count];  //Handles the textures for all other cases, the number on the tile is passed in to the function.
 
 		filled = true;  //Set the tile to filled.
@@ -92,20 +93,24 @@ public class MineTile : MonoBehaviour
 				if ((xpos + 1 < w) && (ypos + 1 < h)) MineBoard.tiles[xpos + 1, ypos + 1].mine = false;
 
 
+				MineCountDisplay.initialize();
+
 				MineBoard.firstClick = false;   //We then set first click to be false, since we only want to do this once at the beginning of the game.
 			}
-			if (mine)   //If we hit a mine
-			{
-				MineBoard.revealAllMines(); //Reveal all the mines because we lost.
-				GetComponent<SpriteRenderer>().sprite = firstMineTexture;   //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
-				MineBoard.gameLost = true;  //Set the game to lost.
-				print("You lost.");
-				return;
-			}
+			if (mine) { MineBoard.loss(this); return; }   //If we hit a mine, then we lost.
+//			{
+//				MineBoard.revealAllMines(); //Reveal all the mines because we lost.
+//				GetComponent<SpriteRenderer>().sprite = firstMineTexture;   //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
+//				MineBoard.gameLost = true;  //Set the game to lost.
+//				print("You lost.");
+//				return;
+//			}
 			//fill(MineBoard.adjacentMines(xpos, ypos));
-			MineBoard.popBubble(xpos, ypos, new bool[MineBoard.w, MineBoard.h]);    //If it's not a mine, then fill the current tile, and handle the case where it's a bubble.
+			if (MineBoard.bulkMode) { MineBoard.bulkCheck(xpos, ypos, MineBoard.countMines(xpos, ypos)); MineBoard.popEmpties(); }
+			else MineBoard.popBubble(xpos, ypos, new bool[MineBoard.w, MineBoard.h]);    //If it's not a mine, then fill the current tile, and handle the case where it's a bubble.
 		}
 
 		if (Input.GetMouseButtonDown(1)) flag();    //If we right clicked, flag the tile.
+//		if (Input.GetMouseButtonDown(1)) MineBoard.bulkCheck(xpos, ypos, MineBoard.countMines(xpos, ypos));
 	}
 }

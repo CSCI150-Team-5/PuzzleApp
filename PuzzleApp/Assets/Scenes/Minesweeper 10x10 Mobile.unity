@@ -3030,7 +3030,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.7793254, g: 0.7807618, b: 0.7830189, a: 0}
+  m_BackGroundColor: {r: 0.70980394, g: 0.70980394, b: 0.70980394, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -14653,5 +14653,83 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: unfilledTexture
+      value: 
+      objectReference: {fileID: 21300000, guid: b973239fd2ecdad41a07451ddb9887aa,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 267739aab0c2e4a48be8d9ef4c96a107,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: adfedb9b8cc5d6d49b0aabca09dce4bb,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: ac7d1a769a1d8104389bd512104f81e8,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1477aa33ce31db44d8d6021b52e1bdb6,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: aab97672aececef4dba371ce4031833e,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: f3d466f8e3a65914fa36e97f613c67c0,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f993eb19a0a38a41b69f5ffa6174d84,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: fdd9d80c316238643838172339ec38f9,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: filledTexture.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: d4416ee58cd75fc4fb777182ba4ab6e0,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: firstMineTexture
+      value: 
+      objectReference: {fileID: 21300000, guid: a166be6e95c004948aced4d73639c579,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: mineTexture
+      value: 
+      objectReference: {fileID: 21300000, guid: be5292ffe05ce254589419c36fc24dfd,
+        type: 3}
+    - target: {fileID: 9028556320330222943, guid: fc711ea879730b2479c50da35604a353,
+        type: 3}
+      propertyPath: flaggedTexture
+      value: 
+      objectReference: {fileID: 21300000, guid: a6d9373df65f02448ac58c3d46a0dde9,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc711ea879730b2479c50da35604a353, type: 3}
