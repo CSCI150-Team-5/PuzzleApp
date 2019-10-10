@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Minesweeper/10x10 Mobile.unity
+- path: Assets/Scenes/SplashScreen.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
