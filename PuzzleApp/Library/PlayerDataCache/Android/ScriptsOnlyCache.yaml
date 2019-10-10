@@ -698,4 +698,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Minesweeper 10x10 Mobile.unity
   - Assets/Scenes/Snake.unity
-  playerPath: C:/Users/Student/Documents/GitHub/PuzzleApp/PuzzleApp/PuzzleApp.apk
+  playerPath: C:/Temp/PuzzleApp/PuzzleApp/PuzzleApp.apk

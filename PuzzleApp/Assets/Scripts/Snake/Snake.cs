@@ -63,7 +63,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    public void TurnLeft()
+    public void TurnLeft() 
     {
         dir--;
         if(dir < 0) dir = 3;
