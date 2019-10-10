@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    private void Awake()
+    {
+        Screen.orientation = ScreenOrientation.Portrait;
+    }
     public void OpenMinesweeper()
     {
         SceneManager.LoadScene(2);
