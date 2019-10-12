@@ -30,7 +30,7 @@ public class Board
             {
                 GameObject tile = new GameObject("tile", typeof(SpriteRenderer));
                 tile.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.tileSprite;
-                tile.transform.position = new Vector3(x, y);
+                tile.transform.position = new Vector3(x, y, 0);
             }
         }
     }
@@ -44,17 +44,29 @@ public class Board
 
         appleGO = new GameObject("Food", typeof(SpriteRenderer));
         appleGO.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.appleSprite;
-        appleGO.transform.position = new Vector3(applePos.x, applePos.y,-5);
+        appleGO.transform.position = new Vector3(applePos.x, applePos.y,-6);
         
     }
 
     public void SnakeMoved(Vector2Int movedTo)
     {
+        bool wallCol = GameAssets.instance.wallCol;
         if(movedTo == applePos)
         {
             UnityEngine.Object.Destroy(appleGO);
             SpawnApple();
             snake.Grow(); 
+        }
+        if(movedTo.x < 0 || movedTo.x > gridSize.x -1 || movedTo.y < 0 || movedTo.y > gridSize.y - 1)
+        {
+            if(wallCol)
+            {
+                snake.Die();
+            }
+            else
+            {
+                snake.WrapSnake(gridSize);
+            }
         }
     }
 }

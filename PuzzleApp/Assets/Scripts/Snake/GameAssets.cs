@@ -13,6 +13,8 @@ public class GameAssets : MonoBehaviour
     public Sprite appleSprite;
     public Vector2Int gridSize;
 
+    public bool wallCol;
+
     //public int halfVert;
 
     private void Awake()

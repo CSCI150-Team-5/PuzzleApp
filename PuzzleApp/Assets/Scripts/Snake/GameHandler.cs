@@ -17,6 +17,7 @@ public class GameHandler : MonoBehaviour
 
         snake.Setup(board);
         board.Setup(snake);
+
     }
 
 }
