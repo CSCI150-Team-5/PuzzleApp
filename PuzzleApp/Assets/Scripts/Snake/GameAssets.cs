@@ -7,6 +7,7 @@ public class GameAssets : MonoBehaviour
     public static GameAssets instance;
 
     public Camera cam;
+    public Canvas gameOver;
     public Sprite tileSprite;
     public Sprite snakeheadSprite;
     public Sprite snakebodySprite;

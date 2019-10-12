@@ -8,6 +8,7 @@ public class Snake : MonoBehaviour
 
     private float moveTimer;
     private float moveTimerBase;
+    private float speedUp;
 
     private enum cardinal{ LEFT, DOWN, RIGHT, UP};
     private int dir;
@@ -20,6 +21,7 @@ public class Snake : MonoBehaviour
     private List<Transform> bodyTransforms;
 
 
+
     public void Setup(Board b)
     {
         this.board = b;
@@ -27,15 +29,33 @@ public class Snake : MonoBehaviour
 
     void Awake()
     {
-        gridPos = new Vector2Int(GameAssets.instance.gridSize.x / 2, GameAssets.instance.gridSize.y / 2);
-        moveTimerBase = 0.5f;
-        moveTimer = moveTimerBase;
-        dir = (int)cardinal.DOWN;
-        hasNotTurned = true;
-        transform.position = new Vector3(gridPos.x +0.5f, gridPos.y + 0.5f, 10);
         bodyLength = 0;
         bodyList = new List<Vector2Int>();
         bodyTransforms = new List<Transform>();
+        Init();
+    }
+
+    private void Init()
+    {
+        gridPos = new Vector2Int(GameAssets.instance.gridSize.x / 2, GameAssets.instance.gridSize.y / 2);
+        speedUp = 0.025f;
+        moveTimerBase = 0.4f;
+        moveTimer = moveTimerBase;
+        dir = (int)cardinal.DOWN;
+        hasNotTurned = true;
+        transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 10);
+        transform.localRotation = Quaternion.identity;
+        //if (bodyTransforms.Count > 0)
+        //{
+            foreach (Transform t in bodyTransforms)
+            {
+                Destroy(t.gameObject);
+            }
+        //}
+        bodyLength = 0;
+        bodyList.Clear();// = new List<Vector2Int>();
+        bodyTransforms.Clear();// = new List<Transform>();
+        board.SpawnApple();
     }
 
     void Update()
@@ -88,9 +108,17 @@ public class Snake : MonoBehaviour
     public void Die()
     {
         Debug.Log("GAME OVER");
+        GameAssets.instance.gameOver.enabled = true;
+        moveTimerBase = Mathf.Infinity;
     }
 
-    public void TurnLeft() 
+    public void Restart()
+    {
+        GameAssets.instance.gameOver.enabled = false;
+        Init();
+    }
+
+    public void TurnRight() 
     {
         if (hasNotTurned)
         {
@@ -101,7 +129,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    public void TurnRight()
+    public void TurnLeft()
     {
         if (hasNotTurned)
         {
@@ -156,6 +184,7 @@ public class Snake : MonoBehaviour
         GameObject bodyPart = new GameObject("renderer", typeof(SpriteRenderer));
         bodyPart.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.snakebodySprite;
         bodyTransforms.Add(bodyPart.transform);
+        moveTimerBase -= speedUp;
         //bodyPart.transform.position = this.transform.position;
     }
 

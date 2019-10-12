@@ -13,11 +13,12 @@ public class GameHandler : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         GameAssets.instance.cam.orthographicSize = GameAssets.instance.gridSize.y / 2;
         GameAssets.instance.cam.transform.position = new Vector3((GameAssets.instance.gridSize.x / 2) - 0.5f, (GameAssets.instance.gridSize.y / 2) - 0.5f, -10);
+        GameAssets.instance.gameOver.enabled = false; 
         board = new Board(GameAssets.instance.gridSize);
 
         snake.Setup(board);
         board.Setup(snake);
-
+    
     }
 
 }

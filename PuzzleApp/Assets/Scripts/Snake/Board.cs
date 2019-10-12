@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board 
+public class Board
 {
     private Vector2Int applePos;
     private GameObject appleGO;
@@ -19,7 +19,7 @@ public class Board
     public void Setup(Snake s)
     {
         this.snake = s;
-        SpawnApple();
+        //SpawnApple();
     }
 
     private void CreateGrid()
@@ -33,6 +33,14 @@ public class Board
                 tile.transform.position = new Vector3(x, y, 0);
             }
         }
+        appleGO = new GameObject("Food", typeof(SpriteRenderer));
+        appleGO.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.appleSprite;
+        HideApple();
+    }
+
+    public void HideApple()
+    {
+        appleGO.transform.position = new Vector3(-500, -500, 0);
     }
 
     public void SpawnApple()
@@ -41,9 +49,6 @@ public class Board
         {
             applePos = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
         } while (snake.GetBodyList().IndexOf(applePos) != -1);
-
-        appleGO = new GameObject("Food", typeof(SpriteRenderer));
-        appleGO.GetComponent<SpriteRenderer>().sprite = GameAssets.instance.appleSprite;
         appleGO.transform.position = new Vector3(applePos.x, applePos.y,-6);
         
     }
@@ -53,7 +58,6 @@ public class Board
         bool wallCol = GameAssets.instance.wallCol;
         if(movedTo == applePos)
         {
-            UnityEngine.Object.Destroy(appleGO);
             SpawnApple();
             snake.Grow(); 
         }
