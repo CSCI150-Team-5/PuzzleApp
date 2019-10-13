@@ -8,12 +8,12 @@ public class SplashScreen : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Invoke("LoadMainMenu", 3);
+        Invoke("LoadMainMenu", 0.5f);
     }
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(1);
+        MainMenuController.instance.ChangeScene(1);
     }
 }
 

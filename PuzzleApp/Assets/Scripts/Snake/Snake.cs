@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Snake : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class Snake : MonoBehaviour
     private float timeSinceLastMove;                //Time since last movement
     private float timeBetweenMoves;                 //Time to wait between movements
     private float speedUpAmount;                    //Amount to decrement timeBetweenMoves each time snake grows
+    private float storedTimeBetweenMoves;           //Recorded when pausing and used when unpausing
 
-    private enum cardinal{ LEFT, DOWN, RIGHT, UP};  //The four direction the snake can move 0-3
+    private enum cardinal { LEFT, DOWN, RIGHT, UP };  //The four direction the snake can move 0-3
     private int dir;                                //The current direction the snake is facing
     private bool hasNotTurned;                      //If the snake has turned since the last time it moved
 
@@ -33,6 +35,8 @@ public class Snake : MonoBehaviour
 
     void Awake()
     {
+        //Subscribe to menu notifications of open and close
+        MainMenuController.onChange += menuHandler;
         //Initialize the snake's body to be empty                             
         bodyList = new List<Vector2Int>();
         bodyTransforms = new List<Transform>();
@@ -43,16 +47,16 @@ public class Snake : MonoBehaviour
     private void Init()
     {
         gridPos = new Vector2Int(GameAssets.instance.gridSize.x / 2, GameAssets.instance.gridSize.y / 2); //Put snake head at center
-        
+
         //Set initial values for 
         speedUpAmount = 0.025f;                 //SHOULD BE SET BY A SLIDER IN THE MENU
-        timeBetweenMoves = 0.4f;       
+        timeBetweenMoves = 0.4f;
         timeSinceLastMove = timeBetweenMoves;   //To put the snake in motion right away
         dir = (int)cardinal.DOWN;
         hasNotTurned = true;
         transform.position = new Vector3(gridPos.x + 0.5f, gridPos.y + 0.5f, 10);
         transform.localRotation = Quaternion.identity;
-       
+
         //Destroy any former body pieces
         foreach (Transform t in bodyTransforms)
         {
@@ -61,7 +65,7 @@ public class Snake : MonoBehaviour
         bodyLength = 0;
         bodyList.Clear();
         bodyTransforms.Clear();
-        
+
         //Tell board to reset the apple
         board.SpawnApple();
     }
@@ -105,10 +109,10 @@ public class Snake : MonoBehaviour
             //If didn't grow, throw away the stored position grabbed earlier
             if (bodyList.Count > bodyLength) bodyList.RemoveAt(bodyList.Count - 1);
 
-           
+
             CheckBodyCol();
-            
-            timeSinceLastMove -= timeBetweenMoves; 
+
+            timeSinceLastMove = 0;
         }
     }
 
@@ -116,7 +120,7 @@ public class Snake : MonoBehaviour
     {
         foreach (Transform t in bodyTransforms)
         {
-            if(gridPos.x == t.position.x && gridPos.y == t.position.y)
+            if (gridPos.x == t.position.x && gridPos.y == t.position.y)
             {
                 Die();
             }
@@ -125,9 +129,21 @@ public class Snake : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("GAME OVER");
+        PauseGame(true);
         GameAssets.instance.gameOver.enabled = true;
-        timeBetweenMoves = Mathf.Infinity;
+    }
+
+    private void PauseGame(bool isPaused)
+    {
+        if(isPaused)
+        {
+            storedTimeBetweenMoves = timeBetweenMoves;
+            timeBetweenMoves = Mathf.Infinity;
+        }
+        else
+        {
+            timeBetweenMoves = storedTimeBetweenMoves;
+        }
     }
 
     public void Restart()
@@ -136,7 +152,7 @@ public class Snake : MonoBehaviour
         Init();
     }
 
-    public void TurnRight() 
+    public void TurnRight()
     {
         if (hasNotTurned)
         {
@@ -169,16 +185,16 @@ public class Snake : MonoBehaviour
         //THAT MEANS TAKING WALL COLLISION COMPLETELY OUT OF BOARD
         //HANDLE IT ENTIRELY WITHIN THE SNAKE
         Debug.Log("WRAP");
-        Vector2Int offset = new Vector2Int(0,0);
-        if(gridPos.x < 0)
+        Vector2Int offset = new Vector2Int(0, 0);
+        if (gridPos.x < 0)
         {
-            offset.x = gridSize.x; 
+            offset.x = gridSize.x;
         }
-        else if(gridPos.x > gridSize.x -1)
+        else if (gridPos.x > gridSize.x - 1)
         {
             offset.x = gridSize.x * -1;
         }
-        else if(gridPos.y < 0)
+        else if (gridPos.y < 0)
         {
             offset.y = gridSize.y;
         }
@@ -214,5 +230,10 @@ public class Snake : MonoBehaviour
         List<Vector2Int> snakeList = new List<Vector2Int>() { gridPos };
         if (bodyLength > 0) { snakeList.AddRange(bodyList); }
         return snakeList;
+    }
+
+    private void menuHandler(bool b)
+    {
+        PauseGame(b);
     }
 }
