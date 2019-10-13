@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿//Snake Game - Marc Herdman CSCI 150
+//Class to initialize and setup the game
+//Place this script on an empty game object in the world
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
