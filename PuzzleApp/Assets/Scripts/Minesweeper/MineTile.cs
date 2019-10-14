@@ -64,8 +64,8 @@ public class MineTile : MonoBehaviour
 	}
 
 //	void Update()
-	void OnMouseDown()
-//	void OnMouseOver()
+//	void OnMouseDown()
+	void OnMouseOver()
 	{
 		if (MineBoard.gameWon | MineBoard.gameLost) return; //If the game is over, return because we shouldn't allow any tiles to be flagged or filled.
 
@@ -81,14 +81,14 @@ public class MineTile : MonoBehaviour
 				//This effectively forces a bubble wherever the player decides to start, which should signficantly
 				//reduce chances of the player having to make guesses.
 				//We first check if a tile is on the board, before setting them to not be mines.
-				if ((xpos - 1 >= 0) && (ypos - 1 >= 0)) MineBoard.tiles[xpos - 1, ypos - 1].mine = false;
-				if (ypos - 1 >= 0) MineBoard.tiles[xpos, ypos - 1].mine = false;
-				if ((xpos + 1 < w) && (ypos - 1 >= 0)) MineBoard.tiles[xpos + 1, ypos - 1].mine = false;
+				if ((xpos - 1 > 0) && (ypos - 1 > 0)) MineBoard.tiles[xpos - 1, ypos - 1].mine = false;
+				if (ypos - 1 > 0) MineBoard.tiles[xpos, ypos - 1].mine = false;
+				if ((xpos + 1 < w) && (ypos - 1 > 0)) MineBoard.tiles[xpos + 1, ypos - 1].mine = false;
 
-				if (xpos - 1 >= 0) MineBoard.tiles[xpos - 1, ypos].mine = false;
+				if (xpos - 1 > 0) MineBoard.tiles[xpos - 1, ypos].mine = false;
 				if (xpos + 1 < w) MineBoard.tiles[xpos + 1, ypos].mine = false;
 
-				if ((xpos - 1 >= 0) && (ypos + 1 < h)) MineBoard.tiles[xpos - 1, ypos + 1].mine = false;
+				if ((xpos - 1 > 0) && (ypos + 1 < h)) MineBoard.tiles[xpos - 1, ypos + 1].mine = false;
 				if (ypos + 1 < h) MineBoard.tiles[xpos, ypos + 1].mine = false;
 				if ((xpos + 1 < w) && (ypos + 1 < h)) MineBoard.tiles[xpos + 1, ypos + 1].mine = false;
 
