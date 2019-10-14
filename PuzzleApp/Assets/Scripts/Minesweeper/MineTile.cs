@@ -63,9 +63,9 @@ public class MineTile : MonoBehaviour
 		GetComponent<SpriteRenderer>().sprite = unfilledTexture;
 	}
 
-	//	void Update()
-	//	void OnMouseDown()
-	void OnMouseOver()
+//	void Update()
+	void OnMouseDown()
+//	void OnMouseOver()
 	{
 		if (MineBoard.gameWon | MineBoard.gameLost) return; //If the game is over, return because we shouldn't allow any tiles to be flagged or filled.
 
@@ -97,7 +97,7 @@ public class MineTile : MonoBehaviour
 
 				MineBoard.firstClick = false;   //We then set first click to be false, since we only want to do this once at the beginning of the game.
 			}
-			if (mine) { MineBoard.loss(this); return; }   //If we hit a mine, then we lost.
+			if (!flagged && mine) { MineBoard.loss(this); return; }   //If we hit a mine, then we lost.
 //			{
 //				MineBoard.revealAllMines(); //Reveal all the mines because we lost.
 //				GetComponent<SpriteRenderer>().sprite = firstMineTexture;   //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
