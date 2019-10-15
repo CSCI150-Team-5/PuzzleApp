@@ -8,6 +8,7 @@ public class HomeScreenController : MonoBehaviour
     private void Awake()
     {
         Screen.orientation = ScreenOrientation.Portrait;
+        
     }
 
     public void clickedButton(int i)

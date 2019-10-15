@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour
 
     public static MainMenuController instance;
     public GameObject topPanel;
+    public GameObject exitPanel;
     public GameObject mainPanel;
     public GameObject snakePanel;
     
@@ -36,6 +37,7 @@ public class MainMenuController : MonoBehaviour
         Screen.orientation = ScreenOrientation.Portrait;
         topPanel.SetActive(false);
         mainPanel.SetActive(false);
+        exitPanel.SetActive(false);
         snakePanel.SetActive(false);
         masterMusicVol = 1f;
         masterSFXVol = 1f;
@@ -69,6 +71,7 @@ public class MainMenuController : MonoBehaviour
         }
         else
         {
+            exitPanel.SetActive(false);
             curPanel.SetActive(true);
         }
         if(onChange != null) onChange(curPanel.activeSelf);
@@ -76,6 +79,7 @@ public class MainMenuController : MonoBehaviour
 
     public void onExitPress()
     {
+        /*
         if(curScene == 1)
         {
             Application.Quit();
@@ -84,6 +88,28 @@ public class MainMenuController : MonoBehaviour
         {
             ChangeScene(1);
         }
+        */
+        if (onChange != null) onChange(curPanel.activeSelf);
+        curPanel.SetActive(false);
+        exitPanel.SetActive(true);
+    }
+
+    public void onExitOk()
+    {
+        exitPanel.SetActive(false);
+        if (curScene == 1)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            ChangeScene(1);
+        }
+    }
+
+    public void onExitCancel()
+    {
+        exitPanel.SetActive(false);
     }
 
     public bool isMenuActive()
