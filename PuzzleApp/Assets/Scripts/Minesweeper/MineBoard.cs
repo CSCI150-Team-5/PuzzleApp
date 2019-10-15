@@ -76,6 +76,7 @@ public class MineBoard : MonoBehaviour
 
 	public static void bulkCheck(int x, int y, int mineCount)
 	{
+		if (tiles[x, y].flagged) return;
 		if (tiles[x, y].mine) loss(tiles[x, y]);
 		else if (tiles[x,y].filled == false && tiles[x,y].flagged == false)
 		{
