@@ -11,20 +11,13 @@ public class MineTile : MonoBehaviour
 	public int xpos;    //The coordinates of the tile.
 	public int ypos;    //We get them from the tile's coordinates in the world.
 
-	public Sprite unfilledTexture;                  //A bunch of variables for storing the values
-	public Sprite mineTexture;                      //of the textures.
-	public Sprite firstMineTexture;                 //We get the values externally through unity.
-	public Sprite flaggedTexture;                   //
-	public Sprite[] filledTexture = new Sprite[9];  //
-													//	public Sprite[] filledTexture;					//
-
-	// Start is called before the first frame update
 	void Start()
 	{
 		mine = Random.value < 0.15;                     //Each tile is initialized with a 15% chance of being a mine.
 
 		xpos = (int)transform.position.x;               //Storing the game world coordinates of the tile in the class variables.
 		ypos = (int)transform.position.y;               //These will be used to identify the tile.
+<<<<<<< Updated upstream
 		MineBoard.tiles[xpos, ypos] = this;          //Making the game board reference this object, using the coordinates to identify it.
 	}
 
@@ -107,5 +100,9 @@ public class MineTile : MonoBehaviour
 		}
 
 		if (Input.GetMouseButtonDown(1)) flag();    //If we right clicked, flag the tile.
+=======
+		MineAssets.instance.tiles[xpos, ypos] = this;          //Making the game board reference this object, using the coordinates to identify it.
+//		MineBoard.resetGame();
+>>>>>>> Stashed changes
 	}
 }

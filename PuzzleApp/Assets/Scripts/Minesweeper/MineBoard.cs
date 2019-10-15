@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MineBoard : MonoBehaviour
 {
+<<<<<<< Updated upstream
 	public static bool firstClick = true;	//A bool that's true by default, indicating we haven't filled a tile yet. After we fill a tile, this is set to false. We use this to ensure the first click is always safe and not a mine.
 	public static bool gameWon = false;		//A bool we use to represent if the game is won. If it is set to true, then we cannot fill or flag any more tiles.
 	public static bool gameLost = false;	//A bool we use to represent if the game is lost. If it is set to true, then we cannot fill or flag any more tiles.
@@ -71,10 +72,10 @@ public class MineBoard : MonoBehaviour
 	}
 
 	public static void checkCompletion()	//This function checks if we met the win condition, which is that all mines are flagged. Note that we don't care if all non-mine tiles are filled in.
+=======
+	MineBoard(int width, int height)
+>>>>>>> Stashed changes
 	{
-		foreach (MineTile tile in tiles) if (tile.mine && !tile.flagged) return;	//If even one mine is not flagged, then return because the game isn't won yet.
-		//But if we reach the end of the loop without finding anything wrong,
-		print("You won!");	//then we won!
-		gameWon = true;	//Set the game status to over.
+		MineAssets.instance.tiles = new MineTile[width, height];
 	}
 }
