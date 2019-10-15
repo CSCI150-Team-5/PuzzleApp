@@ -74,6 +74,18 @@ public class MainMenuController : MonoBehaviour
         if(onChange != null) onChange(curPanel.activeSelf);
     }
 
+    public void onExitPress()
+    {
+        if(curScene == 1)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            ChangeScene(1);
+        }
+    }
+
     public bool isMenuActive()
     {
         return curPanel.activeSelf;
