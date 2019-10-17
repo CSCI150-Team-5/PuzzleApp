@@ -6,6 +6,8 @@ public class MineAssets : MonoBehaviour
 {
  	public static MineAssets instance;
 
+	public Camera cam;
+
 	public Sprite unfilledTexture;					//A bunch of variables for storing textures to be used by the mines.
 	public Sprite mineTexture;						//We get the values externally through unity.
 	public Sprite firstMineTexture;					//

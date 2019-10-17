@@ -452,10 +452,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1206106580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b2490bb89290224398ba1cfd43d72a0, type: 3}
+  m_Script: {fileID: 11500000, guid: a0df371f712c1c240a6f8e1020028e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisButton: {fileID: 1073871826}
+  menuObjects:
+  - {fileID: 1484089679}
+  - {fileID: 1073871826}
 --- !u!4 &1206106582
 Transform:
   m_ObjectHideFlags: 0
@@ -499,6 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7744762ac4f62e347a0dc5e6a5d6bb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1453816025}
   unfilledTexture: {fileID: 21300000, guid: b973239fd2ecdad41a07451ddb9887aa, type: 3}
   mineTexture: {fileID: 21300000, guid: be5292ffe05ce254589419c36fc24dfd, type: 3}
   firstMineTexture: {fileID: 21300000, guid: a166be6e95c004948aced4d73639c579, type: 3}
@@ -530,6 +533,7 @@ MonoBehaviour:
   w: 0
   h: 0
   mineFrequency: 0.15
+  board: {fileID: 0}
 --- !u!4 &1240606619
 Transform:
   m_ObjectHideFlags: 0
@@ -607,7 +611,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
