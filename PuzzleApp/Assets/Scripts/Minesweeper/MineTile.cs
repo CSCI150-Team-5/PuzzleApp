@@ -16,28 +16,28 @@ public class MineTile : MonoBehaviour
 	int w, h;
 
 	void Start()
-//	public MineTile(int i, int j)
+	//	public MineTile(int i, int j)
 	{
-		mine = Random.value < MineAssets.instance.mineFrequency;	//Each tile is initialized with a 15% chance of being a mine.
+		mine = Random.value < MineAssets.instance.mineFrequency;    //Each tile is initialized with a 15% chance of being a mine.
 
-		xpos = (int)transform.position.x;							//Storing the game world coordinates of the tile in the class variables.
+		xpos = (int)transform.position.x;                           //Storing the game world coordinates of the tile in the class variables.
 		ypos = (int)transform.position.y;                           //These will be used to identify the tile.
 
 		w = MineAssets.instance.w;
 		h = MineAssets.instance.h;
 		MineAssets.instance.tiles[xpos, ypos] = this;               //Making the game board reference this object, using the coordinates to identify it.
-//		MineFunctionality.tiles[xpos, ypos] = this;               //Making the game board reference this object, using the coordinates to identify it.
+																	//		MineFunctionality.tiles[xpos, ypos] = this;               //Making the game board reference this object, using the coordinates to identify it.
 
 		board = MineAssets.instance.board;
 	}
 
-//	public void Setup(int i,int j)
-//	{
-////		this.board = b;
-//		this.w = i;
-//		this.h = j;
-//		Debug.Log(w + "," + h);
-//	}
+	//	public void Setup(int i,int j)
+	//	{
+	////		this.board = b;
+	//		this.w = i;
+	//		this.h = j;
+	//		Debug.Log(w + "," + h);
+	//	}
 
 	public bool fill(int count)
 	{
@@ -45,32 +45,32 @@ public class MineTile : MonoBehaviour
 		{
 			Debug.Log(xpos + "|" + ypos);
 			if (mine) GetComponent<SpriteRenderer>().sprite = MineAssets.instance.flaggedMineTexture; //flag it if it's a mine, this happens when all the mines are revealed during loss.
-			return mine;	//But if it is not a mine, return because we should never be allowed to fill a flag manually.
+			return mine;    //But if it is not a mine, return because we should never be allowed to fill a flag manually.
 		}
-		if (count == -2) GetComponent<SpriteRenderer>().sprite = MineAssets.instance.firstMineTexture;	//Special case.
-		else if (mine) GetComponent<SpriteRenderer>().sprite = MineAssets.instance.mineTexture;			//Handles the texture for mines.
-		else GetComponent<SpriteRenderer>().sprite = MineAssets.instance.filledTexture[count];			//Handles the textures for all other cases, the number on the tile is passed in to the function.
+		if (count == -2) GetComponent<SpriteRenderer>().sprite = MineAssets.instance.firstMineTexture;  //Special case.
+		else if (mine) GetComponent<SpriteRenderer>().sprite = MineAssets.instance.mineTexture;         //Handles the texture for mines.
+		else GetComponent<SpriteRenderer>().sprite = MineAssets.instance.filledTexture[count];          //Handles the textures for all other cases, the number on the tile is passed in to the function.
 
-		filled = true;		//Set the tile to filled.
-//		flagged = false;    //And not flagged, in case it was flagged.
+		filled = true;      //Set the tile to filled.
+							//		flagged = false;    //And not flagged, in case it was flagged.
 
 		return mine;
 	}
 
-	public void flag()			//This function handles flagging, what happens when we right click on the PC version.
+	public void flag()          //This function handles flagging, what happens when we right click on the PC version.
 	{
-		if (filled) return;		//If the tile is filled, return because you're not allowed to flag a filled tile.
-		if (flagged)			//If the tile is flagged,
+		if (filled) return;     //If the tile is filled, return because you're not allowed to flag a filled tile.
+		if (flagged)            //If the tile is flagged,
 		{
-			flagged = false;	//unflag it.
+			flagged = false;    //unflag it.
 			GetComponent<SpriteRenderer>().sprite = MineAssets.instance.unfilledTexture;
 		}
 		else
 		{
-			flagged = true;		//Otherwise, set it to flagged.
+			flagged = true;     //Otherwise, set it to flagged.
 			GetComponent<SpriteRenderer>().sprite = MineAssets.instance.flaggedTexture;
 
-///			MineBoard.checkCompletion();	//And check if we won, for the scenario where we just flagged the last mine.
+			///			MineBoard.checkCompletion();	//And check if we won, for the scenario where we just flagged the last mine.
 		}
 
 		if (MineAssets.instance.firstClick == true) MineAssets.instance.minesLeftText.text = "?";
@@ -78,14 +78,46 @@ public class MineTile : MonoBehaviour
 	}
 
 	//	void Update()
+	//	{
+	//		if (Input.touchCount > 0)        //If we left clicked or touched the screen
+	//		{
+	//			float timeHeld = Input.GetTouch(0).deltaTime;
+	//			if (timeHeld >= 10.8f)	//If we touched and held for 0.8 seconds, then we actually meant to flag not fill.
+	//			{
+	////				flag();							//Flag the selected tile.
+	////				MineBoard.checkCompletion();	//Then check if we flagged the last mine, and if we did, tell the user that they won.
+	//////				MineAssets.instance.func.setMineCount();	//Then update the mine counter.
+	////				return;
+	//				Debug.Log("Hi");
+	//			}
+	//		}
+	//	}
+
+	//	void Update()
 	//	void OnMouseDown()
 	void OnMouseOver()
 	{
-		//		Debug.Log("TestingOnMouseOver");
 		if (MineAssets.instance.gameWon | MineAssets.instance.gameLost) return; //If the game is over, return because we shouldn't allow any tiles to be flagged or filled.
-		if (Input.GetMouseButtonDown(0))        //If we left clicked.
+
+		if (Input.GetMouseButtonDown(1) || (Input.touchCount > 0 ? Input.GetTouch(0).deltaTime >= 0.8f : false))	//If we right clicked.
 		{
-//			Debug.Log("TestingLeftClick");
+			flag();                         //Flag the selected tile.
+			MineBoard.checkCompletion();	//Then check if we flagged the last mine, and if we did, tell the user that they won.
+//			MineAssets.instance.func.setMineCount();	//Then update the mine counter.
+			return;
+		}
+
+		if (Input.GetMouseButtonDown(0))// || Input.touchCount > 0)        //If we left clicked or touched the screen
+		{
+//			float timeHeld = Input.GetTouch(0).deltaTime;
+//			if (timeHeld >= 10.8f)	//If we touched and held for 0.8 seconds, then we actually meant to flag not fill.
+//			{
+//				flag();							//Flag the selected tile.
+//				MineBoard.checkCompletion();	//Then check if we flagged the last mine, and if we did, tell the user that they won.
+////				MineAssets.instance.func.setMineCount();	//Then update the mine counter.
+//				return;
+//			}
+
 			if (MineAssets.instance.firstClick) //If it's the very first click of the game, we have special rules.
 			{
 				Debug.Log(w + "," + h);
@@ -133,19 +165,6 @@ public class MineTile : MonoBehaviour
 			MineAssets.instance.board.check(xpos, ypos);
 		}
 
-		if (Input.GetMouseButtonDown(1))
-		{
-			flag();                         //If we right clicked, flag the tile.
-
-////			Debug.Log(board.totalFlags());
-//			Debug.Log(board.totalUnflaggedMines());
-////			Debug.Log(MineBoard.totalFlags());
-////			Debug.Log(MineAssets.instance.board.totalFlags());
-////			Debug.Log(MineBoard.totalMines());
-
-//			MineAssets.instance.func.setMineCount();	//Then update the mine counter.
-		}
-		//		if (Input.GetMouseButtonDown(1)) MineBoard.bulkCheck(xpos, ypos, MineBoard.countMines(xpos, ypos));
 	}
 
 }

@@ -18,6 +18,14 @@ public class MineBoard : MonoBehaviour
 //			//For each mine on the board, we fill it. The value we pass in actually doesn't matter if the tile is a mine.
 //	}
 
+	public static void checkCompletion()	//This function checks if we met the win condition, which is that all mines are flagged. Note that we don't care if all non-mine tiles are filled in.
+	{
+		foreach (MineTile tile in MineAssets.instance.tiles) if (tile.mine && !tile.flagged) return;	//If even one mine is not flagged, then return because the game isn't won yet.
+		//But if we reach the end of the loop without finding anything wrong,
+		print("You won!");	//then we won!
+		MineAssets.instance.gameWon = true;	//Set the game status to over.
+	}
+
 //	public static void loss(MineTile tile)
 	public static void loss(int x, int y)
 	{
@@ -189,16 +197,16 @@ public class MineBoard : MonoBehaviour
 
 		if (mineCount - adjacentFlagged == adjacentUnfilled)
 		{
-			if (bl) if (!MineAssets.instance.tiles[x - 1, y - 1].flagged)	MineAssets.instance.tiles[x - 1, y - 1].flag();
-			if (bm) if (!MineAssets.instance.tiles[x, y - 1].flagged)		MineAssets.instance.tiles[x, y - 1].flag();
-			if (br) if (!MineAssets.instance.tiles[x + 1, y - 1].flagged)	MineAssets.instance.tiles[x + 1, y - 1].flag();
+			if (bl) if (!MineAssets.instance.tiles[x - 1, y - 1].flagged)	{ MineAssets.instance.tiles[x - 1, y - 1].flag();	checkCompletion(); }
+			if (bm) if (!MineAssets.instance.tiles[x, y - 1].flagged)		{ MineAssets.instance.tiles[x, y - 1].flag();		checkCompletion(); }
+			if (br) if (!MineAssets.instance.tiles[x + 1, y - 1].flagged)	{ MineAssets.instance.tiles[x + 1, y - 1].flag();	checkCompletion(); }
 
-			if (ml) if (!MineAssets.instance.tiles[x - 1, y].flagged)		MineAssets.instance.tiles[x - 1, y].flag();
-			if (mr) if (!MineAssets.instance.tiles[x + 1, y].flagged)		MineAssets.instance.tiles[x + 1, y].flag();
+			if (ml) if (!MineAssets.instance.tiles[x - 1, y].flagged)		{ MineAssets.instance.tiles[x - 1, y].flag();		checkCompletion(); }
+			if (mr) if (!MineAssets.instance.tiles[x + 1, y].flagged)		{ MineAssets.instance.tiles[x + 1, y].flag();		checkCompletion(); }
 
-			if (tl) if (!MineAssets.instance.tiles[x - 1, y + 1].flagged)	MineAssets.instance.tiles[x - 1, y + 1].flag();
-			if (tm) if (!MineAssets.instance.tiles[x, y + 1].flagged)		MineAssets.instance.tiles[x, y + 1].flag();
-			if (tr) if (!MineAssets.instance.tiles[x + 1, y + 1].flagged)	MineAssets.instance.tiles[x + 1, y + 1].flag();
+			if (tl) if (!MineAssets.instance.tiles[x - 1, y + 1].flagged)	{ MineAssets.instance.tiles[x - 1, y + 1].flag();	checkCompletion(); }
+			if (tm) if (!MineAssets.instance.tiles[x, y + 1].flagged)		{ MineAssets.instance.tiles[x, y + 1].flag();		checkCompletion(); }
+			if (tr) if (!MineAssets.instance.tiles[x + 1, y + 1].flagged)	{ MineAssets.instance.tiles[x + 1, y + 1].flag();	checkCompletion(); }
 		}
 	}
 }
