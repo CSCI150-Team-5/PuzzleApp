@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonSettings: {fileID: 366952696019559791}
   buttonBack: {fileID: 2764949877823382038}
+  titleText: {fileID: 586961887974537051}
 --- !u!1 &3766089423164484451
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +244,7 @@ GameObject:
   - component: {fileID: 5076601200034235122}
   - component: {fileID: 586961887974537051}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text_Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

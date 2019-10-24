@@ -16,7 +16,7 @@ public class MasterMenuBehavior : MonoBehaviour
     [SerializeField]
     private Button buttonBack;
     [SerializeField]
-    private Text text;
+    private Text titleText;
 
     void Awake()
     {
@@ -32,5 +32,15 @@ public class MasterMenuBehavior : MonoBehaviour
     void RunBack()
     {
         if (OnClickedBack != null) OnClickedBack();
+    }
+    
+    public void SetTitleText(string t)
+    {
+        titleText.text = t;
+    }
+
+    public string GetTitleText()
+    {
+        return titleText.text;
     }
 }

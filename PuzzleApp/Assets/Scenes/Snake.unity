@@ -648,6 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snake: {fileID: 1620485852}
+  myMasterMenu: {fileID: 203105867531361737, guid: eb36a9d94c1c7e74da275fd117bbc261,
+    type: 3}
 --- !u!4 &1700942009
 Transform:
   m_ObjectHideFlags: 0
