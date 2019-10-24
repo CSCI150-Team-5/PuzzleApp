@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class gridManager : MonoBehaviour
 {
-    //[SerializeField]
+    [SerializeField]
     private int rows = 5;
-    //[SerializeField]
+    [SerializeField]
     private int cols = 5;
     [SerializeField]
     private float tileSize = 1;
