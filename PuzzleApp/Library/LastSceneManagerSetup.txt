@@ -1,9 +1,0 @@
-sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/SampleScene.unity
-=======
-- path: Assets/Scenes/MainMenu.unity
->>>>>>> parent of dcf2c84... AutoDrop Complete(?)
-  isLoaded: 1
-  isActive: 1
-  isSubScene: 0
