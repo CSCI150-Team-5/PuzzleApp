@@ -56,7 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Block.cs" />
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\Minesweeper\MineBoard.cs" />
      <Compile Include="Assets\Scripts\Minesweeper\MineCountDisplay.cs" />
@@ -68,6 +67,7 @@
      <Compile Include="Assets\Scripts\Snake\GameHandler.cs" />
      <Compile Include="Assets\Scripts\Snake\Snake.cs" />
      <Compile Include="Assets\Scripts\SplashScreen.cs" />
+     <Compile Include="Assets\Tetris_Block.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Gerardo/Documents/GitHub/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
