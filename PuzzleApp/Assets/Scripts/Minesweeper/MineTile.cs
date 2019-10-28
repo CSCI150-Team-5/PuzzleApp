@@ -30,7 +30,8 @@ public class MineTile : MonoBehaviour
 
 	public void fill(int count)
 	{
-		if (mine) GetComponent<SpriteRenderer>().sprite = mineTexture;  //Handles the texture for mines.
+		if (count == -2) { print("Hi");  GetComponent<SpriteRenderer>().sprite = firstMineTexture; } //Special case.
+		else if (mine) GetComponent<SpriteRenderer>().sprite = mineTexture;  //Handles the texture for mines.
 		else GetComponent<SpriteRenderer>().sprite = filledTexture[count];  //Handles the textures for all other cases, the number on the tile is passed in to the function.
 
 		filled = true;  //Set the tile to filled.
@@ -62,8 +63,8 @@ public class MineTile : MonoBehaviour
 		GetComponent<SpriteRenderer>().sprite = unfilledTexture;
 	}
 
-	//	void Update()
-	//	void OnMouseDown()
+//	void Update()
+//	void OnMouseDown()
 	void OnMouseOver()
 	{
 		if (MineBoard.gameWon | MineBoard.gameLost) return; //If the game is over, return because we shouldn't allow any tiles to be flagged or filled.
@@ -80,32 +81,36 @@ public class MineTile : MonoBehaviour
 				//This effectively forces a bubble wherever the player decides to start, which should signficantly
 				//reduce chances of the player having to make guesses.
 				//We first check if a tile is on the board, before setting them to not be mines.
-				if ((xpos - 1 >= 0) && (ypos - 1 >= 0)) MineBoard.tiles[xpos - 1, ypos - 1].mine = false;
-				if (ypos - 1 >= 0) MineBoard.tiles[xpos, ypos - 1].mine = false;
-				if ((xpos + 1 < w) && (ypos - 1 >= 0)) MineBoard.tiles[xpos + 1, ypos - 1].mine = false;
+				if ((xpos - 1 > 0) && (ypos - 1 > 0)) MineBoard.tiles[xpos - 1, ypos - 1].mine = false;
+				if (ypos - 1 > 0) MineBoard.tiles[xpos, ypos - 1].mine = false;
+				if ((xpos + 1 < w) && (ypos - 1 > 0)) MineBoard.tiles[xpos + 1, ypos - 1].mine = false;
 
-				if (xpos - 1 >= 0) MineBoard.tiles[xpos - 1, ypos].mine = false;
+				if (xpos - 1 > 0) MineBoard.tiles[xpos - 1, ypos].mine = false;
 				if (xpos + 1 < w) MineBoard.tiles[xpos + 1, ypos].mine = false;
 
-				if ((xpos - 1 >= 0) && (ypos + 1 < h)) MineBoard.tiles[xpos - 1, ypos + 1].mine = false;
+				if ((xpos - 1 > 0) && (ypos + 1 < h)) MineBoard.tiles[xpos - 1, ypos + 1].mine = false;
 				if (ypos + 1 < h) MineBoard.tiles[xpos, ypos + 1].mine = false;
 				if ((xpos + 1 < w) && (ypos + 1 < h)) MineBoard.tiles[xpos + 1, ypos + 1].mine = false;
 
 
+				MineCountDisplay.initialize();
+
 				MineBoard.firstClick = false;   //We then set first click to be false, since we only want to do this once at the beginning of the game.
 			}
-			if (mine)   //If we hit a mine
-			{
-				MineBoard.revealAllMines(); //Reveal all the mines because we lost.
-				GetComponent<SpriteRenderer>().sprite = firstMineTexture;   //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
-				MineBoard.gameLost = true;  //Set the game to lost.
-				print("You lost.");
-				return;
-			}
+			if (!flagged && mine) { MineBoard.loss(this); return; }   //If we hit a mine, then we lost.
+//			{
+//				MineBoard.revealAllMines(); //Reveal all the mines because we lost.
+//				GetComponent<SpriteRenderer>().sprite = firstMineTexture;   //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
+//				MineBoard.gameLost = true;  //Set the game to lost.
+//				print("You lost.");
+//				return;
+//			}
 			//fill(MineBoard.adjacentMines(xpos, ypos));
-			MineBoard.popBubble(xpos, ypos, new bool[MineBoard.w, MineBoard.h]);    //If it's not a mine, then fill the current tile, and handle the case where it's a bubble.
+			if (MineBoard.bulkMode) { MineBoard.bulkCheck(xpos, ypos, MineBoard.countMines(xpos, ypos)); MineBoard.popEmpties(); }
+			else MineBoard.popBubble(xpos, ypos, new bool[MineBoard.w, MineBoard.h]);    //If it's not a mine, then fill the current tile, and handle the case where it's a bubble.
 		}
 
 		if (Input.GetMouseButtonDown(1)) flag();    //If we right clicked, flag the tile.
+//		if (Input.GetMouseButtonDown(1)) MineBoard.bulkCheck(xpos, ypos, MineBoard.countMines(xpos, ypos));
 	}
 }

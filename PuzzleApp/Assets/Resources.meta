@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:PuzzleApp/Assets/Resources.meta
 guid: 5f91d4c2297d5b4469ad06f56c33b4bd
+=======
+guid: d1e523584582536418d859a090a6272e
+>>>>>>> master:PuzzleApp/Assets/Scenes/Minesweeper.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

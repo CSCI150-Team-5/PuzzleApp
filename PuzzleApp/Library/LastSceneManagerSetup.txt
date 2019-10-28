@@ -1,5 +1,9 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Snake.unity
+=======
+- path: Assets/Scenes/SplashScreen.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
   isSubScene: 0
