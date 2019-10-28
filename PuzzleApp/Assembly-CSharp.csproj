@@ -56,6 +56,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AutoDrop.cs" />
+     <Compile Include="Assets\PieceMovement.cs" />
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\Minesweeper\MineBoard.cs" />
      <Compile Include="Assets\Scripts\Minesweeper\MineCountDisplay.cs" />
