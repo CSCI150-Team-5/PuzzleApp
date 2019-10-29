@@ -6,7 +6,7 @@ public class TetrisBlock : MonoBehaviour
 {
     public Vector3 rotationPoint;
     private float previousTime;
-    public float fallTime = 0.8f;
+    public float fallTime = 1.0f;
     public static int height = 20;
     public static int width = 10;
     
@@ -21,7 +21,11 @@ public class TetrisBlock : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            transform.position += new Vector3(-1, 0, 0);
+            //Debug.Log(transform.position.x);
+            if(isValid())
+            {
+                transform.position += new Vector3(-1, 0, 0);
+            }
             if (!isValid())
             {
                 transform.position -= new Vector3(-1, 0, 0);
@@ -79,15 +83,13 @@ public class TetrisBlock : MonoBehaviour
 
     bool isValid()
     {
-        foreach (Transform children in transform)
-        {
-            int roundedX = Mathf.RoundToInt(children.transform.position.x);
-            int roundedY = Mathf.RoundToInt(children.transform.position.y);
+        int roundedX = Mathf.RoundToInt(transform.position.x);
+        int roundedY = Mathf.RoundToInt(transform.position.y);
 
-            if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
-            {
-                return false;
-            }
+        Debug.Log(roundedX);
+        if (roundedX < -5 || roundedX >= 5 || roundedY < -10 || roundedY >= 11)
+        {
+            return false;
         }
 
         return true;
