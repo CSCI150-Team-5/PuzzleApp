@@ -7,6 +7,7 @@ public class NewGameButton : MonoBehaviour
 {
 	public void newGameFunction()
 	{
+		print("Test NewGameButton");
 		foreach (MineTile tile in MineBoard.tiles) tile.reinitialize();
 
 		MineBoard.firstClick = true;
