@@ -14,6 +14,7 @@ public class SpawnTetromino : MonoBehaviour
 
     public void Spawn()
     {
+        //Instantiate(Tetrominoes[Random.Range(0, Tetrominoes.Length)], transform.position, Quaternion.identity);
         Instantiate(Tetrominoes[Random.Range(0, Tetrominoes.Length)], transform.position, Quaternion.identity);
     }
 }

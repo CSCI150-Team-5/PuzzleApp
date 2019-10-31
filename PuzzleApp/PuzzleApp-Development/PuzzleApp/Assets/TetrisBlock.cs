@@ -7,8 +7,7 @@ public class TetrisBlock : MonoBehaviour
     public Vector3 rotationPoint;
     private float previousTime;
     public float fallTime = 1.0f;
-    public static int height = 20;
-    public static int width = 10;
+    private static Transform[,] grid = new Transform[10, 20];
     
     // Start is called before the first frame update
     void Start()
@@ -21,11 +20,7 @@ public class TetrisBlock : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            //Debug.Log(transform.position.x);
-            if(isValid())
-            {
-                transform.position += new Vector3(-1, 0, 0);
-            }
+            transform.position += new Vector3(-1, 0, 0);
             if (!isValid())
             {
                 transform.position -= new Vector3(-1, 0, 0);
@@ -34,7 +29,11 @@ public class TetrisBlock : MonoBehaviour
         
         else if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            transform.position += new Vector3(1, 0, 0);
+            if (isValid())
+            {
+                transform.position += new Vector3(1, 0, 0);
+            }
+
             if (!isValid())
             {
                 transform.position -= new Vector3(1, 0, 0);
@@ -43,24 +42,33 @@ public class TetrisBlock : MonoBehaviour
         
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
-            if (!isValid())
+            if (isValid())
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+            }
+
+            
+            /*if (!isValid())
             {
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
-            }
+            }*/
         }
 
-        if(Time.time - previousTime > (Input.GetKeyDown(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
+        if(Time.time - previousTime > (Input.GetKeyDown(KeyCode.DownArrow) ? fallTime / 100 : fallTime))
         {
             transform.position += new Vector3(0, -1, 0);
             if (!isValid())
             {
                 transform.position -= new Vector3(0, -1, 0);
+                //Add2Grid();
                 this.enabled = false;
                 FindObjectOfType<SpawnTetromino>().Spawn();
             }
             previousTime = Time.time;
         }
+
+        MoveLeft();
+        MoveRight();
     }
     
     public void MoveLeft()
@@ -81,16 +89,28 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
+    /*void Add2Grid()
+    {
+        int roundedX = (int)(transform.position.x);
+        int roundedY = (int)(transform.position.y);
+
+        grid[roundedX, roundedY] = transform.position;
+    }*/
+
     bool isValid()
     {
-        int roundedX = Mathf.RoundToInt(transform.position.x);
-        int roundedY = Mathf.RoundToInt(transform.position.y);
-
-        Debug.Log(roundedX);
-        if (roundedX < -5 || roundedX >= 5 || roundedY < -10 || roundedY >= 11)
+        int roundedX = (int)(transform.position.x);
+        int roundedY = (int)(transform.position.y);
+        
+        if (roundedX < -5 || roundedX >= 5 || roundedY < -9 || roundedY >= 11)
         {
             return false;
         }
+
+        /*if (grid[roundedX, roundedY] != null)
+        {
+            return false;
+        }*/
 
         return true;
     }
