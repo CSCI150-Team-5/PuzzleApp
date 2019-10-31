@@ -46,7 +46,9 @@
   </PropertyGroup>
   <ItemGroup>     <Compile Include="Assets\AutoDrop.cs" />
      <Compile Include="Assets\PieceMovement.cs" />
+     <Compile Include="Assets\Scripts\BackButton.cs" />
      <Compile Include="Assets\Scripts\Flowfree\gridManager.cs" />
+     <Compile Include="Assets\Scripts\HomeScreenController.cs" />
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\Minesweeper\MineBoard.cs" />
      <Compile Include="Assets\Scripts\Minesweeper\MineCountDisplay.cs" />
