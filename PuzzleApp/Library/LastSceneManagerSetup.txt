@@ -2,7 +2,11 @@ sceneSetups:
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 - path: Assets/Scenes/Tetris.unity
+=======
+- path: Assets/Scenes/Picross.unity
+>>>>>>> Stashed changes
 =======
 - path: Assets/Scenes/Picross.unity
 >>>>>>> Stashed changes
