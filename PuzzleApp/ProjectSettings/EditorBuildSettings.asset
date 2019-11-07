@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/10x10 Mobile.unity
     guid: 66341e4a86d3b64429a55eef8ce76c2d
   - enabled: 1
+    path: Assets/Scenes/Picross.unity
+    guid: 622195cf27942774b90773e019477b26
+  - enabled: 1
     path: Assets/Scenes/Snake.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
