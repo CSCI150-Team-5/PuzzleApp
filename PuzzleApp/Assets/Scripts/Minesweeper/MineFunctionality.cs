@@ -44,14 +44,14 @@ public class MineFunctionality : MonoBehaviour
 				GameObject tile = new GameObject("Tile (" + i + "," + j + ")", typeof(SpriteRenderer));
 				tile.GetComponent<SpriteRenderer>().sprite = MineAssets.instance.unfilledTexture;
 				tile.transform.position = new Vector3(i, j);
-				tile.tag = "MineTileSprite";
+				tile.tag = "MineObj";
 				tile.AddComponent<BoxCollider2D>();
 				tile.AddComponent<MineTile>();
 //				tiles[i * MineAssets.instance.w + j] = tile.AddComponent<MineTile>();
 			}
 		}
 ////		int a = MineBoard.totalFlags();
-////		GameObject[] tiles = GameObject.FindGameObjectsWithTag("MineTileSprite");
+////		GameObject[] tiles = GameObject.FindGameObjectsWithTag("MineObj");
 //		for (int i = 0; i < tiles.Length; i++)
 //		{
 //			tiles[i].board = MineAssets.instance.board;
@@ -90,7 +90,7 @@ public class MineFunctionality : MonoBehaviour
 
 	public void newGame()
 	{
-		foreach (GameObject tile in GameObject.FindGameObjectsWithTag("MineTileSprite"))
+		foreach (GameObject tile in GameObject.FindGameObjectsWithTag("MineObj"))
 		{
 			Destroy(tile);
 		}
@@ -108,7 +108,7 @@ public class MineFunctionality : MonoBehaviour
 
 	public void returnToMainMenu()
 	{
-		foreach (GameObject tile in GameObject.FindGameObjectsWithTag("MineTileSprite"))
+		foreach (GameObject tile in GameObject.FindGameObjectsWithTag("MineObj"))
 		{
 			Destroy(tile);
 		}
