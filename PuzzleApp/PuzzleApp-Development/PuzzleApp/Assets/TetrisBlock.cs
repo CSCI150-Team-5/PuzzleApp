@@ -29,14 +29,10 @@ public class TetrisBlock : MonoBehaviour
         
         else if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (isValid())
-            {
-                transform.position += new Vector3(1, 0, 0);
-            }
-
+            transform.position += new Vector3(0.5f, 0, 0);
             if (!isValid())
             {
-                transform.position -= new Vector3(1, 0, 0);
+                transform.position -= new Vector3(0.5f, 0, 0);
             }
         }
         
@@ -46,21 +42,14 @@ public class TetrisBlock : MonoBehaviour
             {
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
             }
-
-            
-            /*if (!isValid())
-            {
-                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
-            }*/
         }
 
-        if(Time.time - previousTime > (Input.GetKeyDown(KeyCode.DownArrow) ? fallTime / 100 : fallTime))
+        if(Time.time - previousTime > (Input.GetKeyDown(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
         {
             transform.position += new Vector3(0, -1, 0);
             if (!isValid())
             {
                 transform.position -= new Vector3(0, -1, 0);
-                //Add2Grid();
                 this.enabled = false;
                 FindObjectOfType<SpawnTetromino>().Spawn();
             }
@@ -73,44 +62,31 @@ public class TetrisBlock : MonoBehaviour
     
     public void MoveLeft()
     {
-        transform.position += new Vector3(-1, 0, 0);
+        transform.position += new Vector3(-0.5f, 0, 0);
         if (!isValid())
         {
-            transform.position -= new Vector3(-1, 0, 0);
+            transform.position -= new Vector3(-0.5f, 0, 0);
         }
     }
  
     public void MoveRight()
     {
-        transform.position += new Vector3(1, 0, 0);
+        transform.position += new Vector3(0.5f, 0, 0);
         if (!isValid())
         {
-            transform.position -= new Vector3(1, 0, 0);
+            transform.position -= new Vector3(0.5f, 0, 0);
         }
     }
-
-    /*void Add2Grid()
-    {
-        int roundedX = (int)(transform.position.x);
-        int roundedY = (int)(transform.position.y);
-
-        grid[roundedX, roundedY] = transform.position;
-    }*/
 
     bool isValid()
     {
         int roundedX = (int)(transform.position.x);
         int roundedY = (int)(transform.position.y);
         
-        if (roundedX < -5 || roundedX >= 5 || roundedY < -9 || roundedY >= 11)
+        if (roundedX < -4 || roundedX >= 4 || roundedY < -9 || roundedY >= 11)
         {
             return false;
         }
-
-        /*if (grid[roundedX, roundedY] != null)
-        {
-            return false;
-        }*/
 
         return true;
     }
