@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< Updated upstream
+=======
+using UnityEngine.UI;
+>>>>>>> Stashed changes
 
 public class PicBoard : MonoBehaviour
 {
@@ -134,4 +138,22 @@ public class PicBoard : MonoBehaviour
 
 		return true;
 	}
+<<<<<<< Updated upstream
+=======
+
+	public void checkWon()
+	{
+		Debug.Log("' 1 '");
+		bool won = true;
+		for(int i = 0; i < PicAssets.instance.h; i++)
+			if (PicAssets.instance.rowObjects[i].GetComponent<Text>().color != Color.gray)
+				return;
+		Debug.Log("' 2 '");
+		for (int i = 0; i < PicAssets.instance.w; i++)
+			if (PicAssets.instance.columnObjects[i].GetComponent<Text>().color != Color.gray)
+				return;
+		Debug.Log("' 3 '");
+		PicAssets.instance.gameWon = true;
+	}
+>>>>>>> Stashed changes
 }

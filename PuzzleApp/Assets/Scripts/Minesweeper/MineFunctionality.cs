@@ -51,19 +51,32 @@ public class MineFunctionality : MonoBehaviour
 			}
 		}
 ////		int a = MineBoard.totalFlags();
+<<<<<<< Updated upstream
 ////		GameObject[] tiles = GameObject.FindGameObjectsWithTag("MineObj");
+=======
+////		GameObject[] tiles = GameObject.FindGameObjectsWithTag("MineTileSprite");
+>>>>>>> Stashed changes
 //		for (int i = 0; i < tiles.Length; i++)
 //		{
 //			tiles[i].board = MineAssets.instance.board;
 //		}
 	}
 
+<<<<<<< Updated upstream
 	public void select3x3()
 	{
 		deactivateMenu(true);
 
 		MineAssets.instance.w = 3;
 		MineAssets.instance.h = 3;
+=======
+	public void select5x5()
+	{
+		deactivateMenu(true);
+
+		MineAssets.instance.w = 5;
+		MineAssets.instance.h = 5;
+>>>>>>> Stashed changes
 
 		generateBoard();
 	}

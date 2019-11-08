@@ -9,7 +9,10 @@ public class PicAssets : MonoBehaviour
 
 	public Camera cam;
 	public Canvas can;
+<<<<<<< Updated upstream
 	public Canvas can2;
+=======
+>>>>>>> Stashed changes
 
 	public Sprite unfilledTexture;	//Variables for storing textures to be used by the tiles.
 	public Sprite filledTexture;	//
@@ -17,6 +20,10 @@ public class PicAssets : MonoBehaviour
 
 	public bool gameStart = false;
 	public bool gameWon = false;
+<<<<<<< Updated upstream
+=======
+	public bool fillMode = true;
+>>>>>>> Stashed changes
 
 //	public PicTile[,] tiles;       //A container of all the picross tiles, their constructors place themselves in here. They are identified by their coordinates in the world.
 	public List<List<PicTile>> tiles = new List<List<PicTile>>();       //A container of all the picross tiles, their constructors place themselves in here. They are identified by their coordinates in the world.

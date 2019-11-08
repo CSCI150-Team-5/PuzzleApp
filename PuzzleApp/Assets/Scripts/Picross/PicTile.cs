@@ -24,6 +24,11 @@ public class PicTile : MonoBehaviour
 		filled = !filled;
 		PicAssets.instance.rowObjects[ypos].GetComponent<Text>().color = PicAssets.instance.board.checkRow(ypos) == true ? Color.gray : Color.black;
 		PicAssets.instance.columnObjects[xpos].GetComponent<Text>().color = PicAssets.instance.board.checkColumn(xpos) == true ? Color.gray : Color.black;
+<<<<<<< Updated upstream
+=======
+
+		PicAssets.instance.board.checkWon();
+>>>>>>> Stashed changes
 	}
 
 	public void flag()
@@ -59,7 +64,11 @@ public class PicTile : MonoBehaviour
 		if (PicAssets.instance.gameStart) return;
 		if (PicAssets.instance.gameWon) return; //If the game is over, return because we shouldn't allow any tiles to be flagged or filled.
 
+<<<<<<< Updated upstream
 		if (Input.GetMouseButtonDown(1) || (Input.touchCount > 0 ? Input.GetTouch(0).deltaTime >= 0.8f : false))	//If we right clicked.
+=======
+		if (((PicAssets.instance.fillMode == false) && (Input.GetMouseButtonDown(0))) || Input.GetMouseButtonDown(1) || (Input.touchCount > 0 ? Input.GetTouch(0).deltaTime >= 0.8f : false))	//If we right clicked.
+>>>>>>> Stashed changes
 		{
 			flag();                         //Flag the selected tile.
 ///			PicBoard.checkCompletion();		//Then check if we flagged the last empty spot, and if we did, tell the user that they won.

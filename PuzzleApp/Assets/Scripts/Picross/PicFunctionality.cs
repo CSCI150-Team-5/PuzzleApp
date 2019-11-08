@@ -7,6 +7,11 @@ public class PicFunctionality : MonoBehaviour
 {
  	public GameObject[] menuObjects;	//0: Select Difficulty Label	1: 5x5 Difficulty Button
 	public GameObject[] gameUIObjects;  //0: 
+<<<<<<< Updated upstream
+=======
+	public GameObject border;
+	public GameObject tooltipYouWon;
+>>>>>>> Stashed changes
 
 	public void deactivateMenu(bool menuState)
 	{
@@ -44,7 +49,11 @@ public class PicFunctionality : MonoBehaviour
 				GameObject tile = new GameObject("Tile (" + i + "," + j + ")", typeof(SpriteRenderer));
 //				tile.transform.parent = PicAssets.instance.can.transform;
 				tile.GetComponent<SpriteRenderer>().sprite = PicAssets.instance.unfilledTexture;
+<<<<<<< Updated upstream
 				tile.transform.position = new Vector3(i, j);//Coordinates need to be fixed.
+=======
+				tile.transform.position = new Vector3(i, j,100);//Coordinates need to be fixed.
+>>>>>>> Stashed changes
 				tile.tag = "PicObj";
 				tile.AddComponent<BoxCollider2D>();
 				tile.AddComponent<PicTile>();
@@ -155,7 +164,11 @@ public class PicFunctionality : MonoBehaviour
 			obj.tag = "PicObj";
 
 			obj.transform.localScale = new Vector3(1,1,1);
+<<<<<<< Updated upstream
 			obj.transform.position = new Vector3((PicAssets.instance.w < 10) ? -1f : -1.5f,i,-5);
+=======
+			obj.transform.position = new Vector3((PicAssets.instance.w < 10) ? -1f : -1.5f, i, -5);
+>>>>>>> Stashed changes
 
 			PicAssets.instance.rowObjects.Add(obj);
 		}
@@ -185,11 +198,22 @@ public class PicFunctionality : MonoBehaviour
 			obj.tag = "PicObj";
 
 			obj.transform.localScale = new Vector3(1,1,1);
+<<<<<<< Updated upstream
 			obj.transform.position = new Vector3(i,((PicAssets.instance.w < 10) ? 0f : 0.5f) + (float)PicAssets.instance.h, -5);
 
 			PicAssets.instance.columnObjects.Add(obj);
 		}
 		PicAI.operateOnRow(0);
+=======
+			obj.transform.position = new Vector3(i, ((PicAssets.instance.w < 10) ? 0f : 0.5f) + (float)PicAssets.instance.h, -5);
+
+			PicAssets.instance.columnObjects.Add(obj);
+		}
+
+		tooltipYouWon.transform.SetSiblingIndex(1000);
+
+//		PicAI.operateOnRow(0);
+>>>>>>> Stashed changes
 	}
 
 	//	public void waitForTiles()
@@ -264,6 +288,10 @@ public class PicFunctionality : MonoBehaviour
 //		PicAssets.instance.timerInt = 0;
 
 		PicAssets.instance.gameStart = false;
+<<<<<<< Updated upstream
+=======
+		PicAssets.instance.gameWon = false;
+>>>>>>> Stashed changes
 
 		generateBoard();
 	}
@@ -286,6 +314,12 @@ public class PicFunctionality : MonoBehaviour
 
 		PicAssets.instance.board = null;
 
+<<<<<<< Updated upstream
+=======
+		PicAssets.instance.gameStart = false;
+		PicAssets.instance.gameWon = false;
+
+>>>>>>> Stashed changes
 		deactivateMenu(false);
 	}
 
@@ -313,8 +347,33 @@ public class PicFunctionality : MonoBehaviour
 		else						PicAssets.instance.tiles[(int)toRedo.y][(int)toRedo.z].flag();
 	}
 
+<<<<<<< Updated upstream
 	void Update()
 	{
 		Debug.Log("TESTING "+PicAI.longestEmptyStreak(false,0,0,PicAssets.instance.w));
+=======
+	public void selectFlag()
+	{
+		PicAssets.instance.fillMode = false;
+//		border.transform.position = new Vector3(120, 190, 0);
+		border.GetComponent<RectTransform>().anchoredPosition = new Vector3(120, 190, 0);
+	}
+
+	public void selectFill()
+	{
+		PicAssets.instance.fillMode = true;
+//		border.transform.position = new Vector3(-120, 190, 0);
+		border.GetComponent<RectTransform>().anchoredPosition = new Vector3(-120, 190, 0);
+	}
+
+	void Update()
+	{
+		if (PicAssets.instance.gameWon)
+			tooltipYouWon.SetActive(true);
+		else
+			tooltipYouWon.SetActive(false);
+
+//		Debug.Log("TESTING "+PicAI.longestEmptyStreak(false,0,0,PicAssets.instance.w));
+>>>>>>> Stashed changes
 	}
 }
