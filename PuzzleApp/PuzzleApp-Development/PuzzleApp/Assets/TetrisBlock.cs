@@ -7,7 +7,9 @@ public class TetrisBlock : MonoBehaviour
     public Vector3 rotationPoint;
     private float previousTime;
     public float fallTime = 1.0f;
-    private static Transform[,] grid = new Transform[10, 20];
+    public static int w = 10;
+    public static int h = 21;
+    private static Transform[,] grid = new Transform[w, h];
     
     // Start is called before the first frame update
     void Start()
@@ -20,10 +22,10 @@ public class TetrisBlock : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            transform.position += new Vector3(-1, 0, 0);
+            transform.position += new Vector3(-0.5f, 0, 0);
             if (!isValid())
             {
-                transform.position -= new Vector3(-1, 0, 0);
+                transform.position -= new Vector3(-0.5f, 0, 0);
             }
         }
         
@@ -50,6 +52,7 @@ public class TetrisBlock : MonoBehaviour
             if (!isValid())
             {
                 transform.position -= new Vector3(0, -1, 0);
+                
                 this.enabled = false;
                 FindObjectOfType<SpawnTetromino>().Spawn();
             }
@@ -78,16 +81,26 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
+    public static Vector2 roundVec(Vector2 v)
+    {
+        return new Vector2(Mathf.Round(v.x), Mathf.Round(v.y));
+    }
+
     bool isValid()
     {
-        int roundedX = (int)(transform.position.x);
-        int roundedY = (int)(transform.position.y);
+        int roundedX = Mathf.RoundToInt(transform.position.x);
+        int roundedY = Mathf.RoundToInt(transform.position.y);
         
-        if (roundedX < -4 || roundedX >= 4 || roundedY < -9 || roundedY >= 11)
+        if (roundedX < -4.5f || roundedX >= 4.5f || roundedY < -9 || roundedY >= 11)
         {
             return false;
         }
 
         return true;
+    }
+
+    public static bool insideBorder(Vector2 pos)
+    {
+        return ((int) pos.x >= 0 && (int) pos.x < w && (int) pos.y >= 0);
     }
 }
