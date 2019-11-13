@@ -6,15 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SplashScreen.unity
-    guid: c9bec91010003164ba9184be25582ef9
-  - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: edc861e4130967049a50c73f94756135
-  - enabled: 1
-    path: Assets/Scenes/Minesweeper 10x10 Mobile.unity
-    guid: 2bb757491f90bbd4bb013ace9e790aa8
-  - enabled: 1
-    path: Assets/Scenes/Snake.unity
+    path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
