@@ -5,126 +5,87 @@ using UnityEngine.UI;
 
 public class GameSquareBehavior : MonoBehaviour
 {
-    public delegate void gameChanged(int n, int[] pn);
-    public static event gameChanged OnPlayedNumsChanged;
+    Color RED = new Color(1, 0, 0, 1);
+    Color BLACK = new Color(0, 0, 0, 1);
+    Color ALPHA = new Color(0, 0, 0, 0);
 
-    public Text[] texts;
-    private bool[] playedNums = {false, false, false, false, false, false, false, false, false, false };
     [SerializeField]
-    GameObject controller;
-    public int myLoc = 0;
-    private bool isLocked;
-    
-    // Start is called before the first frame update
-    void Awake()
-    {
-        SetVisibleTexts();
-    }
+    private Text[] texts = new Text[10];
+    private bool[] selected = new bool[9];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private Vector2Int loc;
+    private bool isClickable = true;
 
-    public void Click()
-    {
-        if (!isLocked)
-        {
-            int num = controller.GetComponent<GameBehaviour>().GetSelectedNum();
-            Debug.Log(num);
-            playedNums[num] = !playedNums[num];
-            SetVisibleTexts();
-            if (OnPlayedNumsChanged != null)
-            {
-                OnPlayedNumsChanged(myLoc, GetAllPlayed());
-            }
-        }
-    }
+    [SerializeField]
+    private GameObject master;
 
-    private void SetVisibleTexts()
+    void Start()
     {
-        int count = CountPlayed();
-        if(count == 0)
-        {
-            foreach(Text text in texts)
-            {
-                text.color = new Color(0, 0, 0, 0);
-            }
-            //Debug.Log("Count 0");
-        }
-        else if(count == 1)
-        {
-            int num = GetLowestPlayed();
-            texts[0].text = num.ToString();
-            texts[0].color = new Color(0, 0, 0, 1);
-            for(int i = 1; i<10; ++i)
-            {
-                texts[i].color = new Color(0, 0, 0, 0);
-            }
-            
+        /*
+        if(selected[1])
+        { 
+            Debug.Log("Selected is true");
         }
         else
         {
-            for(int i = 0; i < 10; ++i)
+            Debug.Log("Selected is false");
+        }
+        */
+    }
+
+    public void OnClick()
+    {
+        if (isClickable)
+        {
+            master.GetComponent<GameController>().GameButtonClicked(loc);
+        }
+    }
+
+    //Takes a list of numbers and sets the display acoringly
+    //Negative numbers are converted to red text to indicate a conflict in placement
+    //SetClickable to false to prevent the player from being able to click this square.
+    public void SetDisplay(List<int> nums, bool setClickable = true)
+    {
+        isClickable = setClickable;
+        foreach (Text t in texts)
+        {
+            t.color = ALPHA;
+        }
+        foreach(int i in nums)
+        {
+            Debug.Log(loc.x+","+loc.y+" Recieved: " + i);
+        }
+        if(nums.Count == 1)
+        {
+            Color thisColor = BLACK;
+            int thisNumber = nums[0];
+            if(thisNumber < 0)
             {
-                if(playedNums[i])
+                thisColor = RED;
+                thisNumber *= -1;
+            }
+            texts[0].text = thisNumber.ToString();
+            texts[0].color = thisColor;
+        }
+        else if(nums.Count == 0) Debug.Log("TRIGGER\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+        else if(nums.Count > 1)
+        {
+            foreach(int num in nums)
+            {
+                int thisNum = num;
+                Color thisColor = BLACK;
+                if(num < 0)
                 {
-                    texts[i].color = new Color(0, 0, 0, 1);
+                    thisColor = RED;
+                    thisNum *= -1;
                 }
-                else
-                {
-                    texts[i].color = new Color(0, 0, 0, 0);
-                }
+                texts[thisNum].color = thisColor;
             }
         }
     }
 
-    private int CountPlayed()
+    public void SetLoc(Vector2Int l)
     {
-        int count = 0;
-        foreach(bool isPlayed in playedNums)
-        {
-            if (isPlayed) count++;
-        }
-        return count;
-    }
-
-    private int GetLowestPlayed()
-    {
-        for(int i = 0; i < 10; ++i)
-        {
-            if(playedNums[i])
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private int[] GetAllPlayed()
-    {
-        int[] played = new int[10];
-        int index = 0;
-        for(int i = 0; i < 10; ++i)
-        {
-            if(playedNums[i])
-            {
-                played[index++] = i;
-            }
-        }
-        return played;
-    }
-
-    public void SetNumber(int num, bool setLock)
-    {
-       
-        for(int i =0; i<10; ++i) 
-        {
-            playedNums[i] = false;
-        }
-        if(num>0) playedNums[num] = true;
-        SetVisibleTexts();
-        isLocked = setLock;
+        loc = l;
     }
 }
