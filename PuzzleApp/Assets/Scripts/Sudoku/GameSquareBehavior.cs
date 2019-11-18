@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameSquareBehavior : MonoBehaviour
 {
     Color RED = new Color(1, 0, 0, 1);
-    Color BLACK = new Color(0, 0, 0, 1);
+    Color WHITE = new Color(1, 1, 1, 1);
     Color ALPHA = new Color(0, 0, 0, 0);
 
     [SerializeField]
@@ -57,7 +57,7 @@ public class GameSquareBehavior : MonoBehaviour
         }
         if(nums.Count == 1)
         {
-            Color thisColor = BLACK;
+            Color thisColor = WHITE;
             int thisNumber = nums[0];
             if(thisNumber < 0)
             {
@@ -73,7 +73,7 @@ public class GameSquareBehavior : MonoBehaviour
             foreach(int num in nums)
             {
                 int thisNum = num;
-                Color thisColor = BLACK;
+                Color thisColor = WHITE;
                 if(num < 0)
                 {
                     thisColor = RED;

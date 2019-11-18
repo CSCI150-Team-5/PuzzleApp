@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     private GameObject confirmPanel;
 
 
-    private int settingDiff = 1;
+    private int settingDiff = 50;
 
     private int curSelection;
 

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class SelectionSquareBehavior : MonoBehaviour
 {
+    Color WHITE = new Color(1, 1, 1, 1);
     Color BLACK = new Color(0, 0, 0, 1);
-    Color GREEN = new Color(0, 1, 0, 1);
     
     [SerializeField]
     private GameObject master;
@@ -41,7 +41,7 @@ public class SelectionSquareBehavior : MonoBehaviour
 
     public void SetActive(bool isActive)
     {
-        if (isActive) text.color = GREEN;
-        else text.color = BLACK;
+        if (isActive) text.color = BLACK;
+        else text.color = WHITE;
     }
 }
