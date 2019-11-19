@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class MineFunctionality : MonoBehaviour
 {
-	public GameObject[] menuObjects;	//0: Select Difficulty Label	1: 3x3 Difficulty Button	2: 10x10 Difficulty Button
-	public GameObject[] gameUIObjects;	//0: Mines Left Label	1: Time left Label
+	public GameObject[] menuObjects;    //0: Select Difficulty Label	1: 3x3 Difficulty Button	2: 10x10 Difficulty Button
+	public GameObject[] gameUIObjects;  //0: Mines Left Label	1: Time left Label
+	public Slider sliderMineFrequency;
 
 	public void deactivateMenu(bool menuState)
 	{
@@ -51,32 +52,19 @@ public class MineFunctionality : MonoBehaviour
 			}
 		}
 ////		int a = MineBoard.totalFlags();
-<<<<<<< Updated upstream
-////		GameObject[] tiles = GameObject.FindGameObjectsWithTag("MineObj");
-=======
 ////		GameObject[] tiles = GameObject.FindGameObjectsWithTag("MineTileSprite");
->>>>>>> Stashed changes
 //		for (int i = 0; i < tiles.Length; i++)
 //		{
 //			tiles[i].board = MineAssets.instance.board;
 //		}
 	}
 
-<<<<<<< Updated upstream
-	public void select3x3()
-	{
-		deactivateMenu(true);
-
-		MineAssets.instance.w = 3;
-		MineAssets.instance.h = 3;
-=======
 	public void select5x5()
 	{
 		deactivateMenu(true);
 
 		MineAssets.instance.w = 5;
 		MineAssets.instance.h = 5;
->>>>>>> Stashed changes
 
 		generateBoard();
 	}
@@ -99,6 +87,12 @@ public class MineFunctionality : MonoBehaviour
 		MineAssets.instance.h = 15;
 
 		generateBoard();
+	}
+
+	public void setMineFrequency()
+	{
+		Debug.Log("SliderFreqValue is:" + sliderMineFrequency.value);
+		MineAssets.instance.mineFrequency = (float)sliderMineFrequency.value /100f;
 	}
 
 	public void newGame()
