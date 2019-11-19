@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class mainMenu : MonoBehaviour
 {
-    public void playGame(){
+    public void playPinball(){
         SceneManager.LoadScene("pinballGame");
+    }
+
+    public void returnToPinballMain(){
+        SceneManager.LoadScene("pbMainMenu");
     }
 }
