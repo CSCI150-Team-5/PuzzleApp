@@ -40,10 +40,10 @@ public class Tetris_Block : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 0.5f), 90);
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
             if (!isValid())
             {
-                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 0.5f), -90);
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, -1), -90);
             }
         }
 
@@ -77,8 +77,8 @@ public class Tetris_Block : MonoBehaviour
     {
         foreach (Transform children in transform)
         {
-            int roundedX = (int) (children.transform.position.x);
-            int roundedY = (int) (children.transform.position.y);
+            int roundedX = (int)(children.transform.position.x);
+            int roundedY = (int)(children.transform.position.y);
 
             if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
             {
