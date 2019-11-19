@@ -1,57 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PicBoard : MonoBehaviour
 {
 	public PicBoard(int width, int height)
 	{
-<<<<<<< Updated upstream
-		///		PicAssets.instance.tiles = new PicTile[width, height];
-		PicAssets.instance.tiles = new List<List<PicTile>>(new List<List<PicTile>>(width));
-		for (int i = 0; i < width; i++)
-		{
-			PicAssets.instance.tiles.Add(new List<PicTile>(height));
-			for (int j = 0; j < height; j++) PicAssets.instance.tiles[i].Add(new PicTile(false));
-		}
-
-		PicAssets.instance.rows = new List<List<int>>(new List<List<int>>(height));
-		for (int i = 0; i < height; i++)
-			PicAssets.instance.rows.Add(new List<int>());
-		PicAssets.instance.columns = new List<List<int>>(new List<List<int>>(height));
-		for (int i = 0; i < width; i++)
-			PicAssets.instance.columns.Add(new List<int>());
-
-		//		Debug.Log("R is: " + PicAssets.instance.tiles.Count);
-		//		for (int i = 0; i < PicAssets.instance.tiles.Count; i++) Debug.Log("L is: " + PicAssets.instance.tiles[i].Count);
-		//		PicAssets.instance.rows = new int[height][];
-		//		PicAssets.instance.columns = new int[width][];
-		//		PicAssets.instance.rows = new List<List<int>>;
-		//		PicAssets.instance.columns = new int[width][];
-	}
-
-	//	public void checkRows()
-	//	{
-	////		foreach (PicTile tile in PicAssets.instance.tiles) if (tile.mine) tile.fill(-1);  //Reveal all the mines because we lost.
-	//		for (int rowNumber = 0; rowNumber < PicAssets.instance.h; rowNumber++)
-	//		{
-	//			int current = 0;
-	//			for (int i = 0; i < PicAssets.instance.w; i++)
-	//			{
-	//				if (PicAssets.instance.tiles[i, rowNumber].empty) current++;
-	//				else if (current != 0)
-	//				{
-	////					PicAssets.instance.rows[rowNumber].Add(current);
-	//					current = 0;
-	//				}
-	//			}
-	////			if (current != 0) PicAssets.instance.rows[rowNumber].Add(current);
-	//
-	//			if (PicAssets.instance.rows[rowNumber].Count == 0) PicAssets.instance.rows[rowNumber].Add(current);
-	//		}
-	//	}
-
-=======
 ///		PicAssets.instance.tiles = new PicTile[width, height];
 		PicAssets.instance.tiles = new List<List<PicTile>>(width);
 		PicAssets.instance.tileObjects = new List<List<GameObject>>(width);
@@ -180,5 +135,47 @@ public class PicBoard : MonoBehaviour
 
 		return true;
 	}
->>>>>>> Stashed changes
+
+	public void checkWon()
+	{
+		Debug.Log("' 1 '");
+		bool won = true;
+		for(int i = 0; i < PicAssets.instance.h; i++)
+			if (PicAssets.instance.rowObjects[i].GetComponent<Text>().color != Color.gray)
+				return;
+		Debug.Log("' 2 '");
+		for (int i = 0; i < PicAssets.instance.w; i++)
+			if (PicAssets.instance.columnObjects[i].GetComponent<Text>().color != Color.gray)
+				return;
+		Debug.Log("' 3 '");
+		PicAssets.instance.gameWon = true;
+	}
+
+	public void markRow(int rowNum)
+	{
+//		Debug.Log("My Row# is: " + rowNum);
+		List<Vector3> toChange = new List<Vector3>();
+		for (int i = 0; i < PicAssets.instance.w; i++)
+			if ((PicAssets.instance.tiles[i][rowNum].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.filledTexture) && (PicAssets.instance.tiles[i][rowNum].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.flaggedTexture))
+				toChange.Add(new Vector3(0f, i, rowNum));
+
+		for (int i = 0; i < toChange.Count; i++)
+			PicAssets.instance.tiles[(int)toChange[i].y][(int)toChange[i].z].flag();
+
+		if (toChange.Count != 0) PicAssets.instance.history.Add(toChange);
+	}
+
+	public void markColumn(int colNum)
+	{
+//		Debug.Log("My Col# is: " + colNum);
+		List<Vector3> toChange = new List<Vector3>();
+		for (int i = 0; i < PicAssets.instance.h; i++)
+			if ((PicAssets.instance.tiles[colNum][i].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.filledTexture) && (PicAssets.instance.tiles[colNum][i].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.flaggedTexture))
+				toChange.Add(new Vector3(0f, colNum, i));
+
+		for (int i = 0; i < toChange.Count; i++)
+			PicAssets.instance.tiles[(int)toChange[i].y][(int)toChange[i].z].flag();
+
+		if (toChange.Count != 0) PicAssets.instance.history.Add(toChange);
+	}
 }
