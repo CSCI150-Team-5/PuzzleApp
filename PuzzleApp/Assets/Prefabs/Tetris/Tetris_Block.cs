@@ -6,7 +6,7 @@ public class Tetris_Block : MonoBehaviour
 {
     public Vector3 rotationPoint;
     private float previousTime;
-    public float fallTime = 0.1f;
+    public float fallTime = 0.4f;
     public static int height = 24;
     public static int width = 9;
     private static Transform[,] grid = new Transform [width, height];
@@ -22,19 +22,19 @@ public class Tetris_Block : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            transform.position += new Vector3(-0.5f, 0, 0);
-            if (!isValid())
-            {
-                transform.position += new Vector3(0.5f, 0, 0);
+            transform.position += new Vector3(-1, 0, 0);
+            if (!isValid()) 
+            { 
+                transform.position += new Vector3(1, 0, 0);
             }
         }
 
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            transform.position += new Vector3(0.5f, 0, 0);
+            transform.position += new Vector3(1, 0, 0);
             if (!isValid())
             {
-                transform.position += new Vector3(-0.5f, 0, 0);
+                transform.position += new Vector3(-1, 0, 0);
             }
         }
 
@@ -61,13 +61,40 @@ public class Tetris_Block : MonoBehaviour
             previousTime = Time.time;
         }
     }
+    
+    public void MoveLeft()
+    {
+        transform.position += new Vector3(-1, 0, 0);
+        if (!isValid()) 
+        { 
+            transform.position += new Vector3(1, 0, 0);
+        }
+    }
+
+    public void MoveRight()
+    {
+        transform.position += new Vector3(1, 0, 0);
+        if (!isValid())
+        {
+            transform.position += new Vector3(-1, 0, 0);
+        }
+    }
+
+    public void Rotation()
+    {
+        transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+        if (!isValid())
+        {
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, -1), -90);
+        }
+    }
 
     void Add2Grid()
     {
         foreach (Transform children in transform)
         {
-            int roundedX = (int)(children.transform.position.x);
-            int roundedY = (int)(children.transform.position.y);
+            int roundedX = Mathf.RoundToInt(children.transform.position.x);
+            int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
             grid[roundedX, roundedY] = children;
         }
@@ -77,8 +104,8 @@ public class Tetris_Block : MonoBehaviour
     {
         foreach (Transform children in transform)
         {
-            int roundedX = (int)(children.transform.position.x);
-            int roundedY = (int)(children.transform.position.y);
+            int roundedX = Mathf.RoundToInt(children.transform.position.x);
+            int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
             if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
             {
