@@ -44,7 +44,7 @@ public class GameSquareBehavior : MonoBehaviour
     //Takes a list of numbers and sets the display acoringly
     //Negative numbers are converted to red text to indicate a conflict in placement
     //SetClickable to false to prevent the player from being able to click this square.
-    public void SetDisplay(List<int> nums, bool setClickable = true)
+    public void SetDisplay(List<int> nums, bool highlight, bool setClickable = true)
     {
         isClickable = setClickable;
         foreach (Text t in texts)
@@ -61,7 +61,7 @@ public class GameSquareBehavior : MonoBehaviour
             int thisNumber = nums[0];
             if(thisNumber < 0)
             {
-                thisColor = RED;
+                if(highlight) thisColor = RED;
                 thisNumber *= -1;
             }
             texts[0].text = thisNumber.ToString();
@@ -76,7 +76,7 @@ public class GameSquareBehavior : MonoBehaviour
                 Color thisColor = WHITE;
                 if(num < 0)
                 {
-                    thisColor = RED;
+                    if(highlight) thisColor = RED;
                     thisNum *= -1;
                 }
                 texts[thisNum].color = thisColor;
