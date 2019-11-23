@@ -20,9 +20,14 @@ public class GameController : MonoBehaviour
     private GameObject winnerPanel;
     [SerializeField]
     private GameObject confirmPanel;
+    [SerializeField]
+    private GameObject settingsPanel;
 
 
     private int settingDiff = 50;
+    private bool settingNotes = true;
+    private bool settingHighlight = true;
+    private bool resetOnExitMenu = false;
 
     private int curSelection;
 
@@ -32,15 +37,15 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Random.InitState(Mathf.RoundToInt(Time.realtimeSinceStartup));
+        //Random.InitState(Mathf.RoundToInt(Time.realtimeSinceStartup));
         CreateGameBoard();
-        for (int y = 0; y < 9; y++)
-        {
-            for (int x = 0; x < 9; x++)
-            {
-                Debug.Log(x + "," + y + " = " + gameBoard[x, y]);
-            }
-        }
+        //for (int y = 0; y < 9; y++)
+        //{
+        //    for (int x = 0; x < 9; x++)
+        //    {
+        //        Debug.Log(x + "," + y + " = " + gameBoard[x, y]);
+        //    }
+        //}
         SetupPlayerBoard();
         CreateVisuals();
     }
@@ -55,22 +60,29 @@ public class GameController : MonoBehaviour
                 playerBoard[x, y, gameBoard[x, y]] = true;
             }
         }
-        for(int i = 0; i < settingDiff; i++)
+        for (int i = 0; i < settingDiff; i++)
         {
             Vector2Int randCell = new Vector2Int(Random.Range(0, 9), Random.Range(0, 9));
-            while(getListOfSelected(randCell.x, randCell.y).Count == 0)
+            while (getListOfSelected(randCell.x, randCell.y).Count == 0)
             {
                 randCell = new Vector2Int(Random.Range(0, 9), Random.Range(0, 9));
             }
-            for (int j = 0; j < 10; j++) playerBoard[randCell.x, randCell.y, j] = false; 
+            for (int j = 0; j < 10; j++) playerBoard[randCell.x, randCell.y, j] = false;
         }
     }
 
     public void GameButtonClicked(Vector2Int loc)
-    { 
+    {
         if (!paused)
-        { 
+        {
             Debug.Log("Heard Game Button " + loc.x + ", " + loc.y);
+            if(!settingNotes)
+            {
+                for(int i = 0; i < 10; i++)
+                {
+                    if(i != curSelection) playerBoard[loc.x, loc.y, i] = false;
+                }
+            }
             playerBoard[loc.x, loc.y, curSelection] = !playerBoard[loc.x, loc.y, curSelection];
             // gameSquares[loc.x, loc.y].GetComponent<GameSquareBehavior>().SetDisplay(getListOfSelected(loc.x, loc.y));
             //bool hasErrors = FindAndDisplayConflictsInPlayerBoard();
@@ -99,7 +111,7 @@ public class GameController : MonoBehaviour
 
     public void NewGameButtonClicked()
     {
-        if(paused) //Coming from a game over screen
+        if (paused) //Coming from a game over screen
         {
             NewGame();
         }
@@ -117,14 +129,20 @@ public class GameController : MonoBehaviour
         confirmPanel.transform.localPosition = new Vector2(0, -40f);
     }
 
+    public void SettingsButtonClicked()
+    {
+        paused = true;
+        settingsPanel.transform.localPosition = new Vector2(0, -40f);
+    }
+
     public void YesButtonClicked()
     {
-        if(confirmPanelCaller == "NewGameButton")
+        if (confirmPanelCaller == "NewGameButton")
         {
             NewGame();
 
         }
-        else if(confirmPanelCaller == "MainMenuButton")
+        else if (confirmPanelCaller == "MainMenuButton")
         {
             SceneManager.LoadScene(0);
         }
@@ -134,6 +152,30 @@ public class GameController : MonoBehaviour
     {
         confirmPanel.transform.position = new Vector2(-1500f, 480.4f);
         paused = false;
+    }
+
+    public void NotesToggleChanged(bool setting)
+    {
+        settingNotes = setting;
+        resetOnExitMenu = true;
+    }
+
+    public void HighlightToggleChanged(bool setting)
+    {
+        settingHighlight = setting;
+        Debug.Log("S:" + settingHighlight);
+        resetOnExitMenu = true;
+    }
+
+    public void OnSettingMenuClosed()
+    {
+        settingsPanel.transform.position = new Vector2(-1500f, 480.4f);
+        paused = false;
+        if(resetOnExitMenu)
+        {
+            resetOnExitMenu = false;
+            //NewGame();
+        }
     }
 
     private void Win()
@@ -152,6 +194,7 @@ public class GameController : MonoBehaviour
     {
         winnerPanel.transform.position = new Vector2(-1500f, 480.4f);
         confirmPanel.transform.position = new Vector2(-1500f, 480.4f);
+        settingsPanel.transform.position = new Vector2(-1500f, 480.4f);
         Vector2Int emptyCell = GetNextEmpty();
         if (emptyCell.x == -1) return true;
 
@@ -248,7 +291,7 @@ public class GameController : MonoBehaviour
                 gameSquares[x,y] = Instantiate(gameSquare, transform);
                 Button b = gameSquares[x,y];
                 b.transform.localPosition = new Vector3(xOffset, yOffset, 0);
-                b.GetComponent<GameSquareBehavior>().SetDisplay(getListOfSelected(x,y));
+                b.GetComponent<GameSquareBehavior>().SetDisplay(getListOfSelected(x,y), settingHighlight);
                 b.GetComponent<GameSquareBehavior>().SetLoc(new Vector2Int(x, y));
                 xOffset += 110;
             }
@@ -343,7 +386,8 @@ public class GameController : MonoBehaviour
                         }
                     }
                 }
-                gameSquares[x, y].GetComponent<GameSquareBehavior>().SetDisplay(myValues);
+                //if(settingHighlight)
+                    gameSquares[x, y].GetComponent<GameSquareBehavior>().SetDisplay(myValues,settingHighlight);
             }
         }
         return (hasErrors || hasMultipesOrEmpties);
