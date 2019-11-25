@@ -1,7 +1,7 @@
-/Library
-/.idea
-/.vs
-/Logs
-/obj
-/Packages
-/PuzzleApp.apk
+/PuzzleApp/Library
+/PuzzleApp/.idea
+/PuzzleApp/.vs
+/PuzzleApp/Logs
+/PuzzleApp/obj
+/PuzzleApp/Packages
+/PuzzleApp/PuzzleApp.apk
