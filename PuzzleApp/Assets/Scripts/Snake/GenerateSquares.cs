@@ -15,6 +15,11 @@ public class GenerateSquares : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.orientation = ScreenOrientation.AutoRotation;
         GenerateGrid();
     }
 

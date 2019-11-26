@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SnakeBehavior : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class SnakeBehavior : MonoBehaviour
     private Image snakeBody;
     [SerializeField]
     private Image appleSprite;
+    [SerializeField]
+    private Text appleText;
+    [SerializeField]
+    private GameObject gameoverPanel;
+    [SerializeField]
+    private Toggle wrapSwitch;
+    [SerializeField]
+    private Slider speedSlider;
 
     private int bodySize;
     private List<Vector2Int> bodyPositions = new List<Vector2Int>();
@@ -42,10 +51,12 @@ public class SnakeBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Init();
+        //PlayerPrefs.DeleteAll();
+        pause = true;
         CreateSnakeHead();
         CreateApple();
-        Go();
+        Init();
+        //Go();
     }
 
     // Update is called once per frame
@@ -65,21 +76,63 @@ public class SnakeBehavior : MonoBehaviour
         }
     }
 
-    private void Init()
+    public void Init()
     {
-        pause = true;
         hasMovedThisTurn = false;
+        GetSettings();
         speed = settingSpeed;
         time = 0;
+        curPos = new Vector2Int(Mathf.RoundToInt(gridSize.x / 2), Mathf.RoundToInt(gridSize.y / 2));
+        curDir = (int)dir.DOWN;  
+        player.transform.rotation = Quaternion.Euler(0,0,0);
         if (bodyParts.Count > 0) foreach (Image part in bodyParts) { Destroy(part); }
         bodyParts = new List<Image>();
         bodyPositions = new List<Vector2Int>();
         bodySize = 0;
+        appleText.text = bodySize.ToString();
+        gameoverPanel.transform.position = new Vector3(10000, 10000, 0);
     }
 
-    private void Go()
+    private void GetSettings()
+    {
+        if(PlayerPrefs.HasKey("Snake_Wrap"))
+        {
+            int setting = PlayerPrefs.GetInt("Snake_Wrap");
+            settingWrap = (setting == 0) ? false : true; 
+        }
+        else
+        {
+            settingWrap = false;
+            PlayerPrefs.SetInt("Snake_Wrap", 0);
+        }
+        if(PlayerPrefs.HasKey("Snake_Speed"))
+        {
+            settingSpeed = PlayerPrefs.GetFloat("Snake_Speed");
+        }
+        else
+        {
+            settingSpeed = 0.5f;
+            PlayerPrefs.SetFloat("Snake_Speed", settingSpeed);
+        }
+        PlayerPrefs.Save();
+        wrapSwitch.isOn = settingWrap;
+        speedSlider.value = settingSpeed;
+    }
+
+    public void Go()
     {
         pause = false;
+    }
+
+    public void PauseGame()
+    {
+        pause = true;
+    }
+
+    public void UnpauseGame()
+    {
+        pause = false;
+        Init();
     }
 
     private void CreateSnakeHead()
@@ -196,6 +249,8 @@ public class SnakeBehavior : MonoBehaviour
         {
             Debug.Log("YUM!");
             bodySize++;
+            speed = Mathf.Clamp(speed - 0.02f, 0.02f, 1f);
+            appleText.text = bodySize.ToString();
             Image newPart = Instantiate(snakeBody, new Vector3(10000,10000,0), Quaternion.identity);
             newPart.rectTransform.SetParent(transform, false);
             newPart.transform.localScale = boxSize / 100f;
@@ -209,8 +264,10 @@ public class SnakeBehavior : MonoBehaviour
         bool isValidLoc = true;
         do
         {
+            
             applePos = new Vector2Int(Random.Range(0, (int)gridSize.x), Random.Range(0, (int)gridSize.y));
-            if(applePos == curPos) isValidLoc = false;
+            Debug.Log("Attempting to place apple. " + applePos);
+            if (applePos == curPos) isValidLoc = false;
             if(bodySize > 0)
             {
                 foreach(Vector2Int bp in bodyPositions)
@@ -226,5 +283,36 @@ public class SnakeBehavior : MonoBehaviour
     {
         pause = true;
         Debug.Log("GAME OVER");
+        gameoverPanel.transform.localPosition = Vector3.zero;
+    }
+
+    public void SetWrap(bool b)
+    {
+        settingWrap = b;
+        int i = b ? 1 : 0;
+        PlayerPrefs.SetInt("Snake_Wrap", i);
+        PlayerPrefs.Save();
+    }
+
+    public bool GetWarp()
+    {
+        return settingWrap;
+    }
+
+    public void SetBaseSpeed(float s)
+    {
+        settingSpeed = s;
+        PlayerPrefs.SetFloat("Snake_Speed", settingSpeed);
+        PlayerPrefs.Save();
+    }
+
+    public float GetBaseSpeed()
+    {
+        return settingSpeed;
+    }
+
+    public void exitGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }

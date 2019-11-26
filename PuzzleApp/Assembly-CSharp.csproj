@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Snake\GenerateSquares.cs" />
+    <Compile Include="Assets\Scripts\Snake\InstructionsBehavior.cs" />
+    <Compile Include="Assets\Scripts\Snake\SettingPanelBehavior.cs" />
     <Compile Include="Assets\Scripts\Snake\SnakeBehavior.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
