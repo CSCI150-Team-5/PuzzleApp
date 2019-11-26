@@ -7,7 +7,7 @@ public class Tetris_Block : MonoBehaviour
     public Vector3 rotationPoint;
     private float previousTime;
     public float fallTime = 0.4f;
-    public static int height = 24;
+    public static int height = 22;
     public static int width = 9;
     private static Transform[,] grid = new Transform [width, height];
 
@@ -55,13 +55,68 @@ public class Tetris_Block : MonoBehaviour
                 transform.position += new Vector3(0, 1, 0);
                 this.enabled = false;
                 Add2Grid();
+                CheckLines();
                 FindObjectOfType<Spawn_Tetromino>().NewTetromino();
             }
 
             previousTime = Time.time;
         }
     }
-    
+
+    void CheckLines()
+    {
+        Debug.Log("Enter Checkline");
+        for (int i = height - 1; i >= 0; i--)
+        {
+            if(isLine(i))
+            {
+                Destruction(i);
+                RowDown(i);
+            }
+        }
+    }
+
+    bool isLine(int i)
+    {
+        Debug.Log("Enter isLine");
+        for (int j = 0; j < width; j++)
+        {
+            if (grid[j, i] == null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void Destruction(int i)
+    {
+        Debug.Log("Enter Destruction");
+        for (int j = 0; j < width; j++)
+        {
+            Destroy(grid[j, i].gameObject);
+            grid[j, i] = null;
+        }
+    }
+
+    void RowDown(int i)
+    {
+        Debug.Log("Enter RowDown");
+        for (int y = i; y < height; y++)
+        {
+            for(int j = 0; j < width; j++)
+            {
+                if (grid[j, y] != null)
+                {
+                    grid[j, y-1] = grid[j, y];
+                    grid[j, y] = null;
+                    grid[j, y-1].transform.position -= new Vector3(0, 1, 0);
+                }
+            }
+        }
+    }
+
     public void MoveLeft()
     {
         transform.position += new Vector3(-1, 0, 0);
