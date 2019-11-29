@@ -5,87 +5,78 @@ using UnityEngine.UI;
 
 public class GameSquareBehavior : MonoBehaviour
 {
-    Color RED = new Color(1, 0, 0, 1);
-    Color WHITE = new Color(1, 1, 1, 1);
-    Color ALPHA = new Color(0, 0, 0, 0);
+    //Establish colors for all gameboard buttons
+    static Color UNSELECTABLE_COLOR = new Color(0, 0, 0, 1);
+    static Color ERROR_COLOR = new Color(1, 0, 0, 1);
+    static Color SELECTABLE_COLOR = new Color(1, 1, 1, 1);
+    static Color INVISIBLE_COLOR = new Color(0, 0, 0, 0);
 
     [SerializeField]
-    private Text[] texts = new Text[10];
-    private bool[] selected = new bool[9];
-
-    private Vector2Int loc;
-    private bool isClickable = true;
+    private Text[] texts = new Text[10]; //Reference to all ten text items on this object
 
     [SerializeField]
-    private GameObject master;
+    private GameObject master; //Reference to main game object
+    
+    private Vector2Int cell; //Value of the cell this object represents
+    //private bool isLocked = false; //Is clickable or not
 
-    void Start()
-    {
-        /*
-        if(selected[1])
-        { 
-            Debug.Log("Selected is true");
-        }
-        else
-        {
-            Debug.Log("Selected is false");
-        }
-        */
-    }
-
+    //Handle clicks on this object
     public void OnClick()
-    {
-        if (isClickable)
-        {
-            master.GetComponent<GameController>().GameButtonClicked(loc);
-        }
+    { 
+        //Pass the click on to the main game object
+        master.GetComponent<Controller>().GameButtonClicked(cell);
     }
 
-    //Takes a list of numbers and sets the display acoringly
-    //Negative numbers are converted to red text to indicate a conflict in placement
-    //SetClickable to false to prevent the player from being able to click this square.
-    public void SetDisplay(List<int> nums, bool highlight, bool setClickable = true)
+    //Show given numbers on this object
+    public void SetDisplay(List<int> nums, bool highlight, bool isClickable = true)
     {
-        isClickable = setClickable;
+        //Debug.Log("SETLOCKED: " + (setLocked ? "true" : "false"));
+        //isLocked = !isClickable;
+        //Clearing all value displays
         foreach (Text t in texts)
         {
-            t.color = ALPHA;
+            t.color = INVISIBLE_COLOR;
         }
-        foreach(int i in nums)
-        {
-            Debug.Log(loc.x+","+loc.y+" Recieved: " + i);
-        }
+
+        //If only one value is sent...
         if(nums.Count == 1)
         {
-            Color thisColor = WHITE;
+            //Use isClickable and the sign of the value to determine color
+            Color thisColor = UNSELECTABLE_COLOR; //Unselecable numbers can one be single values
+            if (isClickable) thisColor = SELECTABLE_COLOR;
             int thisNumber = nums[0];
             if(thisNumber < 0)
             {
-                if(highlight) thisColor = RED;
-                thisNumber *= -1;
+                if(highlight) thisColor = ERROR_COLOR;
+                thisNumber *= -1; //Now reset the value back to positive
             }
+
+            //Set the main text to the number and color
             texts[0].text = thisNumber.ToString();
             texts[0].color = thisColor;
         }
-        else if(nums.Count == 0) Debug.Log("TRIGGER\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+        //If more than one value is sent....
         else if(nums.Count > 1)
         {
-            foreach(int num in nums)
+            foreach(int num in nums)//itterate through each value
             {
+                //use the sign of the number to determine color
                 int thisNum = num;
-                Color thisColor = WHITE;
+                Color thisColor = SELECTABLE_COLOR;
                 if(num < 0)
                 {
-                    if(highlight) thisColor = RED;
+                    if(highlight) thisColor = ERROR_COLOR;
                     thisNum *= -1;
                 }
+                //Set the given number tiny text to the color required
                 texts[thisNum].color = thisColor;
             }
         }
     }
 
+    //Set this objects location to the given cell
     public void SetLoc(Vector2Int l)
     {
-        loc = l;
+        cell = l;
     }
 }

@@ -63,9 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Sudoku\GameController.cs" />
+    <Compile Include="Assets\Scripts\Sudoku\Controller.cs" />
     <Compile Include="Assets\Scripts\Sudoku\GameSquareBehavior.cs" />
-    <Compile Include="Assets\Scripts\Sudoku\NewGameBtnBehavior.cs" />
     <Compile Include="Assets\Scripts\Sudoku\SelectionSquareBehavior.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

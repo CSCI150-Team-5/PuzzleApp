@@ -5,43 +5,36 @@ using UnityEngine.UI;
 
 public class SelectionSquareBehavior : MonoBehaviour
 {
-    Color WHITE = new Color(1, 1, 1, 1);
-    Color BLACK = new Color(0, 0, 0, 1);
+    //Establish colors for all selection buttons
+    static Color INACTIVE = new Color(1, 1, 1, 1);
+    static Color ACTIVE = new Color(0, 0, 0, 1);
     
+
     [SerializeField]
-    private GameObject master;
+    private GameObject master; //Reference to the main game object
     [SerializeField]
-    private Text text;
+    private Text text; //Reference to the text element of this button
 
-    private int myNum;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int myNum; //Store the number this object contains
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Set this objects number to the number given
     public void SetMyNum(int num)
     {
-        Debug.Log("Setting Num " + num);
+        //Debug.Log("Setting Num " + num);
         myNum = num;
         text.text = num.ToString(); 
     }
 
+    //Handle clicks of this button
     public void OnClick()
     {
-        master.GetComponent<GameController>().SelectButtonClicked(myNum);
+        //Pass the click on to the main game object
+        master.GetComponent<Controller>().SelectButtonClicked(myNum);
     }
 
+    //Set the color of this object
     public void SetActive(bool isActive)
     {
-        if (isActive) text.color = BLACK;
-        else text.color = WHITE;
+        text.color = isActive ? ACTIVE : INACTIVE;
     }
 }
