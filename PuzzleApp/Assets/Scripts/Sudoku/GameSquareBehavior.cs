@@ -5,59 +5,38 @@ using UnityEngine.UI;
 
 public class GameSquareBehavior : MonoBehaviour
 {
-    Color RED = new Color(1, 0, 0, 1);
-    Color WHITE = new Color(1, 1, 1, 1);
-    Color ALPHA = new Color(0, 0, 0, 0);
+    static Color BLACK = new Color(0, 0, 0, 1);
+    static Color RED = new Color(1, 0, 0, 1);
+    static Color WHITE = new Color(1, 1, 1, 1);
+    static Color ALPHA = new Color(0, 0, 0, 0);
 
     [SerializeField]
     private Text[] texts = new Text[10];
-    private bool[] selected = new bool[9];
-
-    private Vector2Int loc;
-    private bool isClickable = true;
-
     [SerializeField]
     private GameObject master;
-
-    void Start()
-    {
-        /*
-        if(selected[1])
-        { 
-            Debug.Log("Selected is true");
-        }
-        else
-        {
-            Debug.Log("Selected is false");
-        }
-        */
-    }
+    private Vector2Int cell;
+    private bool isLocked = false;
 
     public void OnClick()
     {
-        if (isClickable)
-        {
-            master.GetComponent<GameController>().GameButtonClicked(loc);
-        }
+        //if(!isLocked)
+        //{
+            master.GetComponent<Controller>().GameButtonClicked(cell);
+        //}
     }
 
-    //Takes a list of numbers and sets the display acoringly
-    //Negative numbers are converted to red text to indicate a conflict in placement
-    //SetClickable to false to prevent the player from being able to click this square.
-    public void SetDisplay(List<int> nums, bool highlight, bool setClickable = true)
+    public void SetDisplay(List<int> nums, bool highlight, bool isClickable = true)
     {
-        isClickable = setClickable;
+        //Debug.Log("SETLOCKED: " + (setLocked ? "true" : "false"));
+        isLocked = !isClickable;
         foreach (Text t in texts)
         {
             t.color = ALPHA;
         }
-        foreach(int i in nums)
-        {
-            Debug.Log(loc.x+","+loc.y+" Recieved: " + i);
-        }
         if(nums.Count == 1)
         {
-            Color thisColor = WHITE;
+            Color thisColor = BLACK;
+            if (isClickable) thisColor = WHITE;
             int thisNumber = nums[0];
             if(thisNumber < 0)
             {
@@ -86,6 +65,6 @@ public class GameSquareBehavior : MonoBehaviour
 
     public void SetLoc(Vector2Int l)
     {
-        loc = l;
+        cell = l;
     }
 }
