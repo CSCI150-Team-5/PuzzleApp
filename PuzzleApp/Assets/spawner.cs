@@ -9,15 +9,16 @@ public class spawner : MonoBehaviour
     public Vector3 MyGameObjectPosition;
     public float posX;
     public float posY;
-    
+    public int life;
 
     // Update is called once per frame
     void Update()
     {
-        MyGameObjectPosition = GameObject.Find("ball").transform.position;
-        posX = MyGameObjectPosition.x;
-        posY = MyGameObjectPosition.y;
-        if (posY < -10 && (ballProperty.ballCount == 0) && (ballProperty.alive == false) && (ballProperty.life > 0))
+        life = ballProperty.life;
+        MyGameObjectPosition = this.transform.position;
+        posX = this.transform.position.x;
+        posY = this.transform.position.y;
+        if ((ballProperty.ballCount == 0) && (ballProperty.alive == false) && (ballProperty.life > 0))
         {
             for (int i = 0; i < 1; i++)
             {

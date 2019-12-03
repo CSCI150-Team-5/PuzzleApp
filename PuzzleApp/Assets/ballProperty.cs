@@ -7,4 +7,24 @@ public class ballProperty : MonoBehaviour
     public static int ballCount = 1;
     public static int life = 5;
     public static bool alive = true;
+
+    private void Start()
+    {
+        if (ballCount == 0)
+        {
+            alive = false;
+        }
+    }
+
+
+    void Update()
+    {
+
+        if (ballCount == 0)
+        {
+            alive = false;
+        }
+
+
+    }
 }

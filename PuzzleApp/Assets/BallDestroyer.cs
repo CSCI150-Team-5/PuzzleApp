@@ -12,7 +12,7 @@ public class BallDestroyer : MonoBehaviour
         
         if (this.transform.position.y < -10)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             ballProperty.ballCount--;
             ballProperty.life--;
             ballProperty.alive = false;
