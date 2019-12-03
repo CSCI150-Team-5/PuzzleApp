@@ -29,13 +29,13 @@ public class flipperController : MonoBehaviour
             {
                 //Right side.
                 GetComponent<HingeJoint2D>().useMotor = true;
-                Debug.Log ("right");
+                //Debug.Log ("right");
             }
             if(Input.mousePosition.x < Screen.width * 0.5f && !flipper)
             {
                 //Right side.
                 GetComponent<HingeJoint2D>().useMotor = true;
-                Debug.Log ("right");
+                //Debug.Log ("right");
             }
             
         }
@@ -43,7 +43,7 @@ public class flipperController : MonoBehaviour
             {
                 //Left side.
                 GetComponent<HingeJoint2D>().useMotor = false;
-                Debug.Log ("left");
+                //Debug.Log ("left");
             }
 
         

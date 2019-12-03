@@ -47,10 +47,12 @@
   <ItemGroup>     <Compile Include="Assets\BallDestroyer.cs" />
      <Compile Include="Assets\ballProperty.cs" />
      <Compile Include="Assets\BallScript.cs" />
+     <Compile Include="Assets\bumperScript.cs" />
      <Compile Include="Assets\flipperController.cs" />
      <Compile Include="Assets\launcher.cs" />
      <Compile Include="Assets\mainMenu.cs" />
      <Compile Include="Assets\spawner.cs" />
+     <Compile Include="Assets\wallCollision.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Andy/Documents/GitHub/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

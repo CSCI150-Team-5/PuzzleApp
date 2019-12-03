@@ -10,7 +10,7 @@ public class BallScript : MonoBehaviour
     public Vector3 MyGameObjectPosition;
     public float posX;
     public float posY;
-    int ballcount = 0;
+    
 
     // Start is called before the first frame update
     void Start()
