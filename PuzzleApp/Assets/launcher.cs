@@ -25,4 +25,11 @@ public class launcher : MonoBehaviour
             Debug.Log ("space");
         }
     }
+
+    void OnMouseDown()
+    {
+        // launch ball after clicking on it
+        rb2D.AddForce(Vector2.up * thrust  , ForceMode2D.Impulse);
+        Debug.Log ("mouse down");
+    }
 }
