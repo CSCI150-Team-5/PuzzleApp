@@ -4,39 +4,30 @@ using UnityEngine;
 
 public class MineBoard : MonoBehaviour
 {
-//	MineFunctionality func;
-
-//	public MineBoard(MineFunctionality f, int width, int height)
-	public MineBoard(int width, int height)
+	public MineBoard(int width, int height)	//The constructor of the board.
 	{
-//		func = f;
-		MineAssets.instance.tiles = new MineTile[width, height];
+		MineAssets.instance.tiles = new MineTile[width, height];	//We just allocate room for all the tiles.
 	}
-
-//	public static void revealAllMines()	//This function is for when we lose, all the mines are revealed.
-//	{
-//			//For each mine on the board, we fill it. The value we pass in actually doesn't matter if the tile is a mine.
-//	}
 
 	public static void checkCompletion()	//This function checks if we met the win condition, which is that all mines are flagged. Note that we don't care if all non-mine tiles are filled in.
 	{
 		foreach (MineTile tile in MineAssets.instance.tiles) if (tile.mine && !tile.flagged) return;	//If even one mine is not flagged, then return because the game isn't won yet.
+
 		//But if we reach the end of the loop without finding anything wrong,
-		print("You won!");	//then we won!
-		MineAssets.instance.gameWon = true;	//Set the game status to over.
+		print("You won!");  //then we won!
+//		MineAssets.instance.gameWon = true; //Set the game status to over.
+		MineAssets.instance.gameJustWon = true; //Set the game status to over.
 	}
 
-//	public static void loss(MineTile tile)
-	public static void loss(int x, int y)
+	public static void loss(int x, int y)	//When we click on a mine, this function is called because we lost. We pass in the coordinates of the mine we clicked on.
 	{
 		foreach (MineTile tile in MineAssets.instance.tiles) if (tile.mine) tile.fill(-1);	//Reveal all the mines because we lost.
-//		tile.fill(-2);                          //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
-		MineAssets.instance.tiles[x, y].fill(-2);
-		MineAssets.instance.gameLost = true;	//Set the game to lost.
+
+		MineAssets.instance.tiles[x, y].fill(-2);   //Make the mine we clicked on be a red mine, to highlight it separately from the other mines.
+		MineAssets.instance.gameLost = true;		//Set the game to lost.
 		print("You lost.");
 	}
 
-//	public static int totalFlags()  //This counts the total number of flagged tiles.
 	public int totalFlags()  //This counts the total number of flagged tiles.
 	{
 		int count = 0;
@@ -46,7 +37,6 @@ public class MineBoard : MonoBehaviour
 		return count;
 	}
 
-//	public static int totalMines()  //This counts the total number of mine tiles.
 	public int totalMines()  //This counts the total number of mine tiles.
 	{
 		int count = 0;
@@ -91,15 +81,13 @@ public class MineBoard : MonoBehaviour
 		return count;
 	}
 
-	public bool fill(int x, int y)
+	public bool fill(int x, int y)	//The function for filling a tile, has error checking if we lost in case the tile is a mine.
 	{
 		bool returnStatus = true;
 		int mineCount = countMines(x, y);    //Find out how many mines are near this tile.
 		if (MineAssets.instance.tiles[x, y].filled == false) returnStatus = !MineAssets.instance.tiles[x, y].fill(mineCount);   //Fill this tile if it's not already.
-		if (returnStatus == false) loss(x, y);
-		return returnStatus;
-
-//		Debug.Log("TEST" + mineCount);
+		if (returnStatus == false) loss(x, y);	//If we got that the tile was a mine, set ourselves to having lost.
+		return returnStatus;	//And communicate to the parent that we lost.
 	}
 
 	public void popBubble(int x, int y, bool[,] visited)	//The algorithm to detect and pop bubbles.
@@ -109,13 +97,12 @@ public class MineBoard : MonoBehaviour
 		visited[x, y] = true;	//Set this tile to visited.
 
 		int mineCount = countMines(x, y);    //Find out how many mines are near this tile.
-//		if (tiles[x, y].filled == false) tiles[x, y].fill(mineCount);   //Fill this tile if it's not already.
-//		if (bulkMode) bulkCheck(x, y, mineCount);
-		MineAssets.instance.board.fill(x, y);
+
+		MineAssets.instance.board.fill(x, y);   //Fill this tile if it's not already.
 		if (mineCount != 0) return; //If there are mines near this tile, that means we are either not in a bubble, or are at the edge of the bubble, so we're done here and can return.
 
-		int w = MineAssets.instance.w;
-		int h = MineAssets.instance.h;
+		int w = MineAssets.instance.w;	//Storing the width and height for convenience.
+		int h = MineAssets.instance.h;	//
 
 
 		//Here I check all 8 adjacent squares. If they are on the board and not off-board,
@@ -132,44 +119,45 @@ public class MineBoard : MonoBehaviour
 		if ((x + 1 < w) && (y + 1 < h)) popBubble(x + 1, y + 1, visited);
 	}
 
-	public void fillAndPop(int x, int y)
+	public void fillAndPop(int x, int y)	//Calls the fill function, then if we didn't lose, also pops the bubble IF there is a bubble.
 	{
 		if(fill(x, y)) popBubble(x, y, new bool[MineAssets.instance.w, MineAssets.instance.h]);
 	}
 
-	public void check(int x, int y)
+	public void check(int x, int y)	//Function called from the Mine Tile class, checks the tile whose coordinates we pass in. Fills it if it can.
 	{
-		if (MineAssets.instance.tiles[x, y].flagged) return;
-		if (MineAssets.instance.tiles[x, y].mine) { loss(x, y); return; }//Debug.Log("You lost."); //loss(MineAssets.instance.tiles[x, y]);
-		if (!MineAssets.instance.tiles[x, y].filled && !MineAssets.instance.tiles[x, y].flagged)
+		if (MineAssets.instance.tiles[x, y].flagged) return;	//If the tile is flagged, it returns because we're not allowed to fill it. Also prevents you from accidentally filling a flagged mine.
+		if (MineAssets.instance.tiles[x, y].mine) { loss(x, y); return; }	//If we click on a mine, set ourselves to having loss and stop.
+		if (!MineAssets.instance.tiles[x, y].filled && !MineAssets.instance.tiles[x, y].flagged)	//If the tile is ALREADY filled,
 		{
-//			MineAssets.instance.board.fill(x, y);
-//			MineAssets.instance.board.popBubble(x, y, new bool[MineAssets.instance.w, MineAssets.instance.h]);
-			MineAssets.instance.board.fillAndPop(x, y);
-			return;
+			MineAssets.instance.board.fillAndPop(x, y);	//then just pop the bubble,
+			return;										//and exit the function because the rest of the function corresponds only to unfilled tiles.
 		}
 
-		if (MineAssets.instance.bulkMode == false) { Debug.Log("We are not in bulk mode."); return; }
+		//This section of the function is if the tile was not flagged or filled, and isn't a mine.
 
-		int w = MineAssets.instance.w;
-		int h = MineAssets.instance.h;
-		int mineCount = countMines(x, y);
+		int w = MineAssets.instance.w;	//Storing the width locally for convenience.
+		int h = MineAssets.instance.h;	//Storing the height locally for convenience.
+		int mineCount = countMines(x, y);	//Counting how many mines are adjacent to the tile we're currently looking at.
 
+		//The following code counts how many of the adjacent tiles are filled and flagged, for the bulk mode logic. We do not currently support a game mode without bulk mode logic.
 		int adjacentUnfilled = 0;
 		int adjacentFlagged = 0;
-		bool bl = false, bm = false, br = false, ml = false, mr = false, tl = false, tm = false, tr = false;
+		bool bl = false, bm = false, br = false, ml = false, mr = false, tl = false, tm = false, tr = false;	//Bools for detecting if we're at an edge or corner tile. False by default. If the tile exists, it'll bet set to true. A tile doens't exist only if it'd be negative or over the maximum index.
 
-		bl = ((x - 1 >= 0) && (y - 1 >= 0));
-		bm = (y - 1 >= 0);
-		br = ((x + 1 < w) && (y - 1 >= 0));
+		//Bound checking.
+		bl = ((x - 1 >= 0) && (y - 1 >= 0));	//Bottom left
+		bm = (y - 1 >= 0);						//Bottom middle
+		br = ((x + 1 < w) && (y - 1 >= 0));		//Bottom right
 
-		ml = (x - 1 >= 0);
-		mr = (x + 1 < w);
+		ml = (x - 1 >= 0);						//Middle left
+		mr = (x + 1 < w);						//Middle right
 
-		tl = ((x - 1 >= 0) && (y + 1 < h));
-		tm = (y + 1 < h);
-		tr = ((x + 1 < w) && (y + 1 < h));
+		tl = ((x - 1 >= 0) && (y + 1 < h));		//Top left
+		tm = (y + 1 < h);						//Top middle
+		tr = ((x + 1 < w) && (y + 1 < h));		//Top right
 
+		//At this point we record the current state of all the tiles around the tile we're looking at. We only look at the adjacent tiles that actually exist.
 		if (bl)	{ if (!MineAssets.instance.tiles[x - 1, y - 1].filled	&& !MineAssets.instance.tiles[x - 1, y - 1].flagged)	adjacentUnfilled++;	if (MineAssets.instance.tiles[x - 1, y - 1].flagged)	adjacentFlagged++; }
 		if (bm)	{ if (!MineAssets.instance.tiles[x, y - 1].filled		&& !MineAssets.instance.tiles[x, y - 1].flagged)		adjacentUnfilled++;	if (MineAssets.instance.tiles[x, y - 1].flagged)		adjacentFlagged++; }
 		if (br) { if (!MineAssets.instance.tiles[x + 1, y - 1].filled	&& !MineAssets.instance.tiles[x + 1, y - 1].flagged)	adjacentUnfilled++;	if (MineAssets.instance.tiles[x + 1, y - 1].flagged)	adjacentFlagged++; }
@@ -181,7 +169,8 @@ public class MineBoard : MonoBehaviour
 		if (tm)	{ if (!MineAssets.instance.tiles[x, y + 1].filled		&& !MineAssets.instance.tiles[x, y + 1].flagged)		adjacentUnfilled++;	if (MineAssets.instance.tiles[x, y + 1].flagged)		adjacentFlagged++; }
 		if (tr)	{ if (!MineAssets.instance.tiles[x + 1, y + 1].filled	&& !MineAssets.instance.tiles[x + 1, y + 1].flagged)	adjacentUnfilled++;	if (MineAssets.instance.tiles[x + 1, y + 1].flagged)	adjacentFlagged++; }
 
-		if ((mineCount - adjacentFlagged == 0))// && (adjacentUnfilled > 0)) //true)//ajacentUnfilled + ajacentFlagged == mineCount)
+		//If we can draw a conclusion that we flagged everything that needs to be flagged, we fill the rest.
+		if ((mineCount - adjacentFlagged == 0))
 		{
 			if (bl) if (!MineAssets.instance.tiles[x - 1, y - 1].filled	&& !MineAssets.instance.tiles[x - 1, y - 1].flagged)	{ if(MineAssets.instance.tiles[x - 1, y - 1].mine)	loss(x - 1, y - 1);		else fillAndPop(x - 1, y - 1);	}
 			if (bm) if (!MineAssets.instance.tiles[x, y - 1].filled		&& !MineAssets.instance.tiles[x, y - 1].flagged)		{ if(MineAssets.instance.tiles[x, y - 1].mine)		loss(x, y - 1);			else fillAndPop(x, y - 1);		}
@@ -195,6 +184,7 @@ public class MineBoard : MonoBehaviour
 			if (tr) if (!MineAssets.instance.tiles[x + 1, y + 1].filled	&& !MineAssets.instance.tiles[x + 1, y + 1].flagged)	{ if(MineAssets.instance.tiles[x + 1, y + 1].mine)	loss(x + 1, y + 1);		else fillAndPop(x + 1, y + 1);	}
 		}
 
+		//If we can draw a conclusion that we filled everything that needs to be filled, we flag the rest.
 		if (mineCount - adjacentFlagged == adjacentUnfilled)
 		{
 			if (bl) if (!MineAssets.instance.tiles[x - 1, y - 1].flagged)	{ MineAssets.instance.tiles[x - 1, y - 1].flag();	checkCompletion(); }
