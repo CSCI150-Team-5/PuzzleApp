@@ -65,7 +65,6 @@ public class Tetris_Block : MonoBehaviour
 
     void CheckLines()
     {
-        Debug.Log("Enter Checkline");
         for (int i = height - 1; i >= 0; i--)
         {
             if(isLine(i))
@@ -78,7 +77,6 @@ public class Tetris_Block : MonoBehaviour
 
     bool isLine(int i)
     {
-        Debug.Log("Enter isLine");
         for (int j = 0; j < width; j++)
         {
             if (grid[j, i] == null)
@@ -92,7 +90,6 @@ public class Tetris_Block : MonoBehaviour
 
     void Destruction(int i)
     {
-        Debug.Log("Enter Destruction");
         for (int j = 0; j < width; j++)
         {
             Destroy(grid[j, i].gameObject);
@@ -102,7 +99,6 @@ public class Tetris_Block : MonoBehaviour
 
     void RowDown(int i)
     {
-        Debug.Log("Enter RowDown");
         for (int y = i; y < height; y++)
         {
             for(int j = 0; j < width; j++)
