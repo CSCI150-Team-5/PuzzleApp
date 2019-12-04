@@ -3,6 +3,4 @@
 /PuzzleApp/obj
 /PuzzleApp/Packages
 /PuzzleApp/.vs
-/PuzzleApp/.vscode
-/PuzzleApp/ProjectSettings
-/PuzzleApp/PuzzleApp.apk
+/PuzzleApp/*.apk
