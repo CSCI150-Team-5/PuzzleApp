@@ -5,17 +5,15 @@ using UnityEngine.UI;
 
 public class PicBoard : MonoBehaviour
 {
-	public PicBoard(int width, int height)
+	public PicBoard(int width, int height)	//This constructor allocates all the space we need ofr instance's lists.
 	{
-///		PicAssets.instance.tiles = new PicTile[width, height];
 		PicAssets.instance.tiles = new List<List<PicTile>>(width);
 		PicAssets.instance.tileObjects = new List<List<GameObject>>(width);
 		for (int i = 0; i < width; i++)
 		{
 			PicAssets.instance.tiles.Add(new List<PicTile>(height));
-			for (int j = 0; j < height; j++) PicAssets.instance.tiles[i].Add(null);	//Reserving its space.
+			for (int j = 0; j < height; j++) PicAssets.instance.tiles[i].Add(null);	//Reserving its space with dummy values.
 			PicAssets.instance.tileObjects.Add(new List<GameObject>(height));
-//			for (int j = 0; j < height; j++) PicAssets.instance.tileObjects[i].Add(new GameObject());
 			for (int j = 0; j < height; j++) PicAssets.instance.tileObjects[i].Add(null);
 		}
 
@@ -23,42 +21,14 @@ public class PicBoard : MonoBehaviour
 		PicAssets.instance.rows = new List<List<int>>(height);
 		for (int i = 0; i < height; i++)
 			PicAssets.instance.rows.Add(new List<int>());
-		PicAssets.instance.columnObjects = new List<GameObject>(height);// width);
+		PicAssets.instance.columnObjects = new List<GameObject>(height);
 		PicAssets.instance.columns = new List<List<int>>(height);
 		for (int i = 0; i < width; i++)
 			PicAssets.instance.columns.Add(new List<int>());
-
-//		Debug.Log("R is: " + PicAssets.instance.tiles.Count);
-//		for (int i = 0; i < PicAssets.instance.tiles.Count; i++) Debug.Log("L is: " + PicAssets.instance.tiles[i].Count);
-//		PicAssets.instance.rows = new int[height][];
-//		PicAssets.instance.columns = new int[width][];
-//		PicAssets.instance.rows = new List<List<int>>;
-//		PicAssets.instance.columns = new int[width][];
 	}
 
-//	public void checkRows()
-//	{
-////		foreach (PicTile tile in PicAssets.instance.tiles) if (tile.mine) tile.fill(-1);  //Reveal all the mines because we lost.
-//		for (int rowNumber = 0; rowNumber < PicAssets.instance.h; rowNumber++)
-//		{
-//			int current = 0;
-//			for (int i = 0; i < PicAssets.instance.w; i++)
-//			{
-//				if (PicAssets.instance.tiles[i, rowNumber].empty) current++;
-//				else if (current != 0)
-//				{
-////					PicAssets.instance.rows[rowNumber].Add(current);
-//					current = 0;
-//				}
-//			}
-////			if (current != 0) PicAssets.instance.rows[rowNumber].Add(current);
-//
-//			if (PicAssets.instance.rows[rowNumber].Count == 0) PicAssets.instance.rows[rowNumber].Add(current);
-//		}
-//	}
-	public bool checkRow(int rowNum)
+	public bool checkRow(int rowNum)	//This function checks if all the numbers in a row have been completed.
 	{
-		
 		int index = 0;
 		for (int numIndex = 0; numIndex < PicAssets.instance.rows[rowNum].Count; numIndex++)
 		{
@@ -95,10 +65,8 @@ public class PicBoard : MonoBehaviour
 		return true;
 	}
 
-	public bool checkColumn(int columnNum)
+	public bool checkColumn(int columnNum)	//Largely the same as in checkRow, except itterates the other way.
 	{
-
-//		int index = 0;
 		int index = PicAssets.instance.h - 1;
 		for (int numIndex = 0; numIndex < PicAssets.instance.columns[columnNum].Count; numIndex++)
 		{
@@ -107,7 +75,6 @@ public class PicBoard : MonoBehaviour
 
 			for(;;index--)
 			{
-//				if (index >= PicAssets.instance.h)
 				if (index < 0)
 				{
 					if (numbersHit == PicAssets.instance.columns[columnNum][numIndex]) break;
@@ -136,24 +103,21 @@ public class PicBoard : MonoBehaviour
 		return true;
 	}
 
-	public void checkWon()
+	public void checkWon()	//Checks if we met the win condition.
 	{
-		Debug.Log("' 1 '");
-		bool won = true;
 		for(int i = 0; i < PicAssets.instance.h; i++)
 			if (PicAssets.instance.rowObjects[i].GetComponent<Text>().color != Color.gray)
-				return;
-		Debug.Log("' 2 '");
+				return;	//If we found a row that isn't gray, then we haven't won.
+
 		for (int i = 0; i < PicAssets.instance.w; i++)
 			if (PicAssets.instance.columnObjects[i].GetComponent<Text>().color != Color.gray)
-				return;
-		Debug.Log("' 3 '");
-		PicAssets.instance.gameWon = true;
+				return;	//If we found a column that isn't gray, then we havne't won.
+
+		PicAssets.instance.gameWon = true;	//Announce that we won.
 	}
 
-	public void markRow(int rowNum)
+	public void markRow(int rowNum)	//Flags every unfilled tile in a gray row.
 	{
-//		Debug.Log("My Row# is: " + rowNum);
 		List<Vector3> toChange = new List<Vector3>();
 		for (int i = 0; i < PicAssets.instance.w; i++)
 			if ((PicAssets.instance.tiles[i][rowNum].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.filledTexture) && (PicAssets.instance.tiles[i][rowNum].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.flaggedTexture))
@@ -165,9 +129,8 @@ public class PicBoard : MonoBehaviour
 		if (toChange.Count != 0) PicAssets.instance.history.Add(toChange);
 	}
 
-	public void markColumn(int colNum)
+	public void markColumn(int colNum) //Flags every unfilled tile in a gray column.
 	{
-//		Debug.Log("My Col# is: " + colNum);
 		List<Vector3> toChange = new List<Vector3>();
 		for (int i = 0; i < PicAssets.instance.h; i++)
 			if ((PicAssets.instance.tiles[colNum][i].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.filledTexture) && (PicAssets.instance.tiles[colNum][i].GetComponent<SpriteRenderer>().sprite != PicAssets.instance.flaggedTexture))
