@@ -10,6 +10,7 @@ public class Tetris_Block : MonoBehaviour
     public static int height = 22;
     public static int width = 9;
     private static Transform[,] grid = new Transform [width, height];
+    private GameObject spawner;
 
     // Start is called before the first frame update
     void Start()
@@ -165,10 +166,25 @@ public class Tetris_Block : MonoBehaviour
 
             if (grid[roundedX, roundedY] != null)
             {
+                if (roundedY >= height - 4)
+                {
+                    spawner.SendMessage("Stop");
+                }
+
                 return false;
             }
         }
 
         return true;
+    }
+
+    public void AssignSpawner(GameObject go)
+    {
+        spawner = go;
+    }
+
+    public void EmptyGrid()
+    {
+        grid = new Transform[width, height];
     }
 }

@@ -8,7 +8,6 @@
       <e p="Assets" t="Include">
         <e p="Prefabs" t="Include">
           <e p="Tetris" t="Include">
-            <e p="Instant_Drop.cs" t="Include" />
             <e p="LeftButton.cs" t="Include" />
             <e p="RightButton.cs" t="Include" />
             <e p="Rotate.cs" t="Include" />
