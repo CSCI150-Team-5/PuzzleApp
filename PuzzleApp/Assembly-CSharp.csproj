@@ -44,10 +44,11 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\Scripts\pinball\BallDestroyer.cs" />
+  <ItemGroup>     <Compile Include="Assets\bumperScript.cs" />
+     <Compile Include="Assets\Scripts\pinball\BallDestroyer.cs" />
      <Compile Include="Assets\Scripts\pinball\ballProperty.cs" />
      <Compile Include="Assets\Scripts\pinball\BallScript.cs" />
-     <Compile Include="Assets\Scripts\pinball\bumperScript.cs" />
+     <Compile Include="Assets\Scripts\pinball\bumperScriptOld.cs" />
      <Compile Include="Assets\Scripts\pinball\flipperController.cs" />
      <Compile Include="Assets\Scripts\pinball\launcher.cs" />
      <Compile Include="Assets\Scripts\pinball\mainMenu.cs" />

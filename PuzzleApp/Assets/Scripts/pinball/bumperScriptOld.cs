@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bumperScript : MonoBehaviour
+public class bumperScriptOld : MonoBehaviour
 {
 
     Light lightBumper;
