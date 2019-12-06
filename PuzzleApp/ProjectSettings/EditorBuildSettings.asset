@@ -6,6 +6,33 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 15b00ec5ff25fc24896702b570ce5cc9
+  - enabled: 1
+    path: Assets/Scenes/Checkers.unity
+    guid: cad540592a1bb554ba5b57901644c86d
+  - enabled: 1
+    path: Assets/Scenes/Chess.unity
+    guid: b598499c6fa26c34286a022bcdee4e08
+  - enabled: 1
+    path: Assets/Scenes/FreeFlow.unity
+    guid: 6aeac9b3323f71143acf94f158ab56e2
+  - enabled: 1
+    path: Assets/Scenes/Minesweeper.unity
+    guid: 89317b87bf92d304cb94a1429a56a969
+  - enabled: 1
+    path: Assets/Scenes/Picross.unity
+    guid: 622195cf27942774b90773e019477b26
+  - enabled: 1
+    path: Assets/Scenes/Pinball.unity
+    guid: 35399685ba9adcc4ca6d9ab3d0219716
+  - enabled: 1
+    path: Assets/Scenes/Snake.unity
+    guid: cf620ee2835fc8144954876836400844
+  - enabled: 1
     path: Assets/Scenes/Sudoku.unity
     guid: 19fd4a33ca8744e4f8f78c18900b6e65
+  - enabled: 1
+    path: Assets/Scenes/Tetris.unity
+    guid: be81ccfbb053c7c4991bf4995ab35068
   m_configObjects: {}

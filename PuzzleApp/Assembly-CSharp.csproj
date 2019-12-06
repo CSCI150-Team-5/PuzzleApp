@@ -63,41 +63,53 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Main Menu\MainMenuBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\Minesweeper\MineAssets.cs" />
+    <Compile Include="Assets\Scripts\Minesweeper\MineBoard.cs" />
+    <Compile Include="Assets\Scripts\Minesweeper\MineFunctionality.cs" />
+    <Compile Include="Assets\Scripts\Minesweeper\MineTile.cs" />
+    <Compile Include="Assets\Scripts\Picross\PicAI.cs" />
+    <Compile Include="Assets\Scripts\Picross\PicAssets.cs" />
+    <Compile Include="Assets\Scripts\Picross\PicBoard.cs" />
+    <Compile Include="Assets\Scripts\Picross\PicFunctionality.cs" />
+    <Compile Include="Assets\Scripts\Picross\PicTile.cs" />
+    <Compile Include="Assets\Scripts\Snake\InstructionsBehavior.cs" />
+    <Compile Include="Assets\Scripts\Snake\SettingPanelBehavior.cs" />
+    <Compile Include="Assets\Scripts\Snake\SnakeBehavior.cs" />
     <Compile Include="Assets\Scripts\Sudoku\Controller.cs" />
     <Compile Include="Assets\Scripts\Sudoku\GameSquareBehavior.cs" />
     <Compile Include="Assets\Scripts\Sudoku\SelectionSquareBehavior.cs" />
+    <Compile Include="Assets\Scripts\Tetris\LeftButton.cs" />
+    <Compile Include="Assets\Scripts\Tetris\RightButton.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Rotate.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Spawn_Tetromino.cs" />
+    <Compile Include="Assets\Scripts\Tetris\Tetris_Block.cs" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Temp/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/School/150/PuzzleApp/PuzzleApp/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:PuzzleApp/Assets/Editor.meta
-guid: 85318f319551b22489664706c42917dc
-=======
-guid: 05834396c252f1949a17f6e2c4f10b82
->>>>>>> Development:PuzzleApp/Assets/Tile Palletes.meta
+guid: a3a8fc26054b34a45926c80472ed235c
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

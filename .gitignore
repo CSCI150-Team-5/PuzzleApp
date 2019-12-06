@@ -1,6 +1,7 @@
 /PuzzleApp/Library
+/PuzzleApp/.idea
+/PuzzleApp/.vs
 /PuzzleApp/Logs
 /PuzzleApp/obj
 /PuzzleApp/Packages
-/PuzzleApp/.vs
 /PuzzleApp/PuzzleApp.apk
