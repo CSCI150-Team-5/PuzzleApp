@@ -9,38 +9,77 @@ public class gridManager : MonoBehaviour
     [SerializeField]
     private int cols = 5;
     [SerializeField]
-    private float tileSize = 1;
+    private float tileSize = 1;    
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         generateGrid();
     }
+    //generates the grid using a 2d array
     private void generateGrid()
     {
+        //level1 generator
+        int [,] l1 = new int [4,4] 
+        {
+            {1, 0, 0, 0} ,   
+            {0, 0, 0, 0} ,
+            {0, 0, 0, 0} ,   
+            {1, 0, 0, 0}   
+        };
+        
         GameObject refereceTile = (GameObject)Instantiate(Resources.Load("Flowfree/pixelTile"));
+        GameObject redDot = (GameObject)Instantiate(Resources.Load("Flowfree/redDot"));
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < cols; col++)
             {
+                //uses prebad to generate tiles
                 GameObject tile = (GameObject)Instantiate(refereceTile, transform);
-
                 float posX = col * tileSize;
                 float posY = row * -tileSize;
-
+                TileProperties.posX = row;
+                TileProperties.posY = col;
+                Debug.Log ("posX: " + TileProperties.posX + " posY: " + TileProperties.posY );
                 tile.transform.position = new Vector2(posX,posY);
 
+                if(l1[row,col] == 1){
+                GameObject dot = (GameObject)Instantiate(redDot, transform);
+                dot.transform.position = new Vector2(posX,posY);
+                }
+                
             }//cols
-            Destroy(refereceTile);
+            //Destroy(refereceTile);
+            //move reference tiles
+            refereceTile.transform.position = new Vector2(100,100);
+            redDot.transform.position = new Vector2(100,100);
 
             
         }//rows
-
+        //get mid coordinates and position the grid centerscreen
         float gridW = cols * tileSize;
         float gridH = rows * tileSize;
 
         transform.position = new Vector2(-gridW/2 + tileSize/2, gridH/2 +1+ tileSize/2);
         
+
+
+        
     }//end generateGrid
+
+    void level1(){
+
+    int [,] a = new int [4,4] 
+    {
+        {1, 0, 0, 0} ,   /*  initializers for row indexed by 0 */
+        {0, 0, 0, 0} ,
+        {0, 0, 0, 0} ,   /*  initializers for row indexed by 1 */
+        {1, 0, 0, 0}   /*  initializers for row indexed by 2 */
+    };
+
+    Debug.Log (a[0, 0]);
+
+
+    }
     
 }
