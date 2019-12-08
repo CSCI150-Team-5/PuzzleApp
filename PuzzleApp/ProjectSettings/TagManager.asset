@@ -6,6 +6,7 @@ TagManager:
   tags:
   - dot
   - alive
+  - grid
   layers:
   - Default
   - TransparentFX

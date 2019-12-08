@@ -20,7 +20,7 @@ public class ClickScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) 
         {
             //if you hit an object, return postion 
-            if(hit.collider != null && hit.collider.gameObject.transform.tag != "dot")
+            if(hit.collider != null && (hit.collider.gameObject.transform.tag == "grid" || hit.collider.gameObject.transform.tag == "dot" ))
             {
                 GameObject dot = (GameObject)Instantiate(Resources.Load("Flowfree/redBar"));
                 dot.transform.position = new Vector2(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y);                

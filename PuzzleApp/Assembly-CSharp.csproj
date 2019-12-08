@@ -44,7 +44,8 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\ClickScript.cs" />
+  <ItemGroup>     <Compile Include="Assets\barScript.cs" />
+     <Compile Include="Assets\ClickScript.cs" />
      <Compile Include="Assets\levelMaker.cs" />
      <Compile Include="Assets\mainMenu.cs" />
      <Compile Include="Assets\Scripts\Flowfree\gridManager.cs" />
