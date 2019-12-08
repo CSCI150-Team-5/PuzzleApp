@@ -15,6 +15,7 @@ TagManager:
   - 
   - 
   - background
+  - foreground
   - 
   - 
   - 
@@ -25,8 +26,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Front
   - 
   - 
   - 
