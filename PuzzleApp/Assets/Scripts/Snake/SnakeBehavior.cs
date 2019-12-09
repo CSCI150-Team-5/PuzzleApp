@@ -332,6 +332,7 @@ public class SnakeBehavior : MonoBehaviour
     //Allow game to be displayed in either horizontal direction but not either portrait direction
     private void SetScreenOrientaion()
     {
+        Screen.orientation = ScreenOrientation.Landscape;
         Screen.autorotateToLandscapeLeft = true;
         Screen.autorotateToLandscapeRight = true;
         Screen.autorotateToPortrait = false;
