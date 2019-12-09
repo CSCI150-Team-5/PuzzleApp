@@ -7,6 +7,8 @@ TagManager:
   - MineObj
   - PicObj
   - tet
+  - ball
+  - freeball
   layers:
   - Default
   - TransparentFX
