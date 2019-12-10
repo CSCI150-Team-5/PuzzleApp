@@ -272,7 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23a033255cfb7b408efc3240f77a9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tp: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -643,9 +642,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e81bdee529365458768b1259f5eb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 4
-  cols: 4
-  tileSize: 1.1
+  rows: 6
+  cols: 6
+  tileSize: 1
 --- !u!4 &1235108338
 Transform:
   m_ObjectHideFlags: 0

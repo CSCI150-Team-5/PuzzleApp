@@ -5,7 +5,11 @@ using UnityEngine;
 public class ClickScript : MonoBehaviour
 {
     
-    
+    private bool beingHeld;
+    private float posXLast;
+    private float posYLast;
+    private float posXCur;
+    private float posYCur;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +21,14 @@ public class ClickScript : MonoBehaviour
     {
         //create raycast to detect object hit with mouse
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (Input.GetMouseButtonDown(0)) 
+        /*if (Input.GetMouseButtonDown(0)) 
         {
             //if you hit an object, return postion 
-            if(hit.collider != null && (hit.collider.gameObject.transform.tag == "grid" || hit.collider.gameObject.transform.tag == "dot" ))
+            if(hit.collider != null && (hit.collider.gameObject.transform.tag == "grid" && hit.collider.gameObject.transform.tag != "dot" ))
             {
                 GameObject dot = (GameObject)Instantiate(Resources.Load("Flowfree/redBar"));
-                dot.transform.position = new Vector2(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y);                
+                dot.transform.position = new Vector2(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y);
+                              
                 //Debug.Log ("Target Position: " + hit.collider.gameObject.transform.position);
                 //Debug.Log ("Target Position: " + hit.collider.gameObject.transform.name);                
             }
@@ -31,9 +36,56 @@ public class ClickScript : MonoBehaviour
             if(hit.collider != null && hit.collider.gameObject.tag == "alive"){
                 Debug.Log ("target is alive");
                 Destroy(hit.transform.gameObject);
+                //hit.transform.Rotate(Vector3.forward * -90);
             }
+        }*/
+
+        if (Input.GetMouseButtonDown(0)){
+            beingHeld = true;
+            //Debug.Log("being held...");
+            posXLast = Input.mousePosition.x;
+            posYLast = Input.mousePosition.y;
+            
+        } 
+        /*if(beingHeld == true){
+                Debug.Log("X position = " + Input.mousePosition.x);
+                Debug.Log("Y position = " +Input.mousePosition.y);
+        }*/
+
+        
+
+        if (Input.GetMouseButtonUp(0)){
+            beingHeld = false;
+            Debug.Log("not being held...");
+            
+        } 
+
+            if(beingHeld == true)
+            {
+                if(hit.collider != null && (hit.collider.gameObject.transform.tag == "grid" && hit.collider.gameObject.transform.tag != "dot" )){
+                    posXCur = Input.mousePosition.x;
+                    posYCur = Input.mousePosition.y;
+                    
+                    rotate();
+                    
+                    GameObject dot = (GameObject)Instantiate(Resources.Load("Flowfree/redBar"));
+                    dot.transform.position = new Vector2(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y);
+                }
+            }
+
+
+
+    }
+
+    void rotate(){
+        if(posXLast - posXCur > 100){
+            Debug.Log("went right");
+            posXLast = posXCur;
         }
-    
+        if(posXLast - posXCur < 100 ){
+            Debug.Log("went left");
+            posXLast = posXCur;
+        }
     }
     
 }

@@ -11,22 +11,24 @@ public class gridManager : MonoBehaviour
     [SerializeField]
     private float tileSize = 1;    
 
+     int [,] l1 = new int [6,6] 
+        {
+            {1, 0, 0, 0, 0 ,0} ,   
+            {0, 0, 0, 0, 0, 0} ,
+            {0, 0, 0, 0 ,0 ,0} ,   
+            {0, 0, 0, 0, 0, 0} ,   
+            {0, 0, 0, 0, 0, 0},  
+            {1, 0, 0, 0, 0, 0}  
+        };
+
     // Start is called before the first frame update
     void Start()
     {        
         generateGrid();
     }
     //generates the grid using a 2d array
-    private void generateGrid()
-    {
-        //level1 generator
-        int [,] l1 = new int [4,4] 
-        {
-            {1, 0, 0, 0} ,   
-            {0, 0, 0, 0} ,
-            {0, 0, 0, 0} ,   
-            {1, 0, 0, 0}   
-        };
+    private void generateGrid()    {
+        
         
         GameObject refereceTile = (GameObject)Instantiate(Resources.Load("Flowfree/pixelTile"));
         GameObject redDot = (GameObject)Instantiate(Resources.Load("Flowfree/redDot"));
@@ -66,20 +68,6 @@ public class gridManager : MonoBehaviour
 
         
     }//end generateGrid
-
-    void level1(){
-
-    int [,] a = new int [4,4] 
-    {
-        {1, 0, 0, 0} ,   /*  initializers for row indexed by 0 */
-        {0, 0, 0, 0} ,
-        {0, 0, 0, 0} ,   /*  initializers for row indexed by 1 */
-        {1, 0, 0, 0}   /*  initializers for row indexed by 2 */
-    };
-
-    Debug.Log (a[0, 0]);
-
-
-    }
+    
     
 }
